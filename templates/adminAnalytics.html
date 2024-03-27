@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="icon" type="image/x-icon" href="../static/admin-favicon.ico" />
+    <link rel="stylesheet" href="../static/adminAnalytics.css">
+    <link rel='stylesheet'
+        href='https://cdn-uicons.flaticon.com/2.1.0/uicons-bold-straight/css/uicons-bold-straight.css'>
+    <link rel='stylesheet'
+        href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <link rel='stylesheet'
+        href='https://cdn-uicons.flaticon.com/2.1.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.1.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+    <link rel='stylesheet'
+        href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-straight/css/uicons-solid-straight.css'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js"></script>
+
+
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="top">
+            <div class="logo">
+                <i class="fi fi-bs-admin-alt"></i>
+                <span>Admin Panel</span>
+            </div>
+            <i class="fi fi-bs-menu-burger" id="btn"></i>
+        </div>
+        <div class="user">
+            <img src="../static/assets/admin.png" alt="admin" class="user-img">
+            <div>
+                <p class="bold">{{adminName}}</p>
+                <p>Admin</p>
+            </div>
+        </div>
+
+        <ul>
+
+            <li>
+                <a href="/adminPanel">
+                    <i class="fi fi-sr-objects-column"></i>
+                    <span class="nav-item">Dashboard</span>
+                </a>
+                <span class="tooltip">Dashboard</span>
+            </li>
+            <li>
+                <a href="/adminPanel/analytics" class="active">
+                    <i class="fi fi-sr-chart-pie-alt"></i>
+                    <span class="nav-item">Analytics</span>
+                </a>
+                <span class="tooltip">Analytics</span>
+            </li>
+            <li>
+                <a href="/adminPanel/moderation">
+                    <i class="fi fi-sr-admin-alt"></i>
+                    <span class="nav-item">Moderation</span>
+                </a>
+                <span class="tooltip">Moderation</span>
+            </li>
+            <li>
+                <a href="/adminPanel/posts">
+                    <i class="fi fi-sr-memo-circle-check"></i>
+                    <span class="nav-item">Posts</span>
+                </a>
+                <span class="tooltip">Posts</span>
+            </li>
+            <li>
+                <a href="/adminPanel/manageAdmin">
+                    <i class="fi fi-sr-user-add"></i>
+                    <span class="nav-item">Admins</span>
+                </a>
+                <span class="tooltip">Admins</span>
+            </li>
+            <li>
+                <a href="/adminPanel/badges">
+                    <i class="fi fi-ss-first-award"></i>
+                    <span class="nav-item">Badges</span>
+                </a>
+                <span class="tooltip">Badges</span>
+            </li>
+            <li>
+                <a href="/adminLogout">
+                    <i class="fi fi-bs-sign-out-alt"></i>
+                    <span class="nav-item">Logout</span>
+                </a>
+                <span class="tooltip">Logout</span>
+            </li>
+        </ul>
+
+    </div>
+    <div class="main-content">
+        <div class="chart-container">
+            <h4>Server Response Time</h4>
+            <canvas id="pingChart" width="800" height="400"></canvas>
+        </div>
+        {% for index, data in usersData|custom_enumerate %}
+        <input type="hidden" id="userData{{ index+1 }}" value="{{ data }}">
+        {% endfor %}
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            var ctx = document.getElementById('pingChart').getContext('2d');
+            var chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Ping Time (ms)',
+                        data: [],
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+
+            function getPingTime() {
+                $.get('/ping', function (data) {
+                    var timestamp = data.timestamp;
+                    var currentTime = new Date().getTime() / 1000;
+                    var pingTime = (currentTime - timestamp) * 1000;
+                    chart.data.datasets[0].data.push(pingTime);
+                    chart.data.labels.push(new Date().toLocaleTimeString());
+                    if (chart.data.datasets[0].data.length > 20) {
+                        chart.data.datasets[0].data.shift();
+                        chart.data.labels.shift();
+                    }
+                    chart.update();
+                });
+            }
+            getPingTime();
+            setInterval(getPingTime, 3000);
+        });
+    </script>
+</body>
+<script src="../static/adminSidebar.js"></script>
+
+</html>

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RhythmRevive </title>
+    <link rel="stylesheet" href="../static/userProfile.css">
+    <script src="https://kit.fontawesome.com/cae20e7add.js" crossorigin="anonymous"></script>
+    <link rel="icon" type="image/x-icon" href="../static/favicon.ico" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="../static/userSearch.css">
+</head>
+
+<body>
+    <nav>
+        <a href="/" id="nav-logo">RhythmRevive</a>
+        <div class="nav-icons-desktop">
+            <a href="/createPost"><i class="fa-regular fa-square-plus"></i></a>
+            <a href="/messages"><i class="fa-regular fa-message"></i></a>
+        </div>
+        <div class="nav-icons-mobile">
+            <a href="/messages"><i class="fa-regular fa-message"></i></a>
+            <div class="nav-mobile-profile">
+                <!-- Mobile User Profile Picture -->
+                <a href="/userProfile/"><img src="{{selfProfilePfp}}"></a>
+            </div>
+        </div>
+    </nav>
+    <div class="main-container">
+        <!-- Sidebar -->
+        <div class="side-bar">
+            <div class="side-bar-navs">
+                <a href="/" class="sbn-button"><i class="fa-solid fa-house"></i>Home</a>
+                <a class="sbn-button" id="userSearchOpen"><i class="fa-solid fa-magnifying-glass"></i>Search</a>
+                <a href="/videoLessons" class="sbn-button"><i class="fa-solid fa-play"></i>Video Lessons</a>
+                <a href="/forums" class="sbn-button"><i class="fa-solid fa-book"></i>Forums</a>
+                <a href="/sheetMusic" class="sbn-button"><i class="fa-solid fa-music"></i>Sheet Music</a>
+            </div>
+            <div class="side-bar-profile">
+                <a href="/userProfile/">
+                    <div class="side-bar-image">
+                        <!-- Desktop User Profile Picture -->
+                        <img src="{{selfProfilePfp}}">
+                    </div>
+                </a>
+                <a href="/logout" class="logout-button">Logout</a>
+            </div>
+        </div>
+        <!-- Posts Div -->
+        <div class="posts-container">
+            <form class="profile-container">
+                <div class="first-container">
+                    <div class="profile-image">
+                        <!--Profile Picture -->
+                        <img src="{{userPfpPath}}">
+                    </div>
+                    <div class="names">
+                        <b>
+                            <p>@{{userUserName}}</p>
+                        </b>
+                        <p id="light">{{userRealName}}</p>
+                    </div>
+                    <div class="badges">
+                        <div class="badge-photo-container">
+                            <img src="{{ equipBadge[2] }}" title="{{ equipBadge[3] }}"/>
+                        </div>
+                    </div>
+                    {% if selfProfile==True %}
+                    <a href="/editProfile">
+                        <div class="edit-profile">
+                            <p><span>Edit Profile </span><span><i class="fa-solid fa-pen-to-square"></i></span></p>
+                        </div>
+                    </a>
+                    {%endif%}
+
+                    {% if selfProfile!=True %}
+                    
+                    <div class="message">
+                        <a href="/messages/@{{userUserName}}" id="msgatag">
+                        <button id="msgButton" type="button"><span id="msgbtntext">Message</span> <i class="fa-regular fa-envelope"></i></button></a>
+                    </div>
+                    
+                    {%endif%}
+
+                </div>
+                <div class="followers-container">
+                    <div class="f1-container btns">
+
+                        <div class="followers-count" id="btn">
+                            <span id="followerCount"></span>
+                            <span style="display: none;">{{userFollowers}}</span>
+                            <span>Followers</span>
+                        </div>
+
+                        <div class="following-count" id="btn">
+                            <span id="followingCount">{{userFollowing}}</span>
+                            <span>Following</span>
+                        </div>
+
+                        <input type="hidden" id="userUserId" value="{{ userUserId }}">
+                        <input type="hidden" id="selfUserId" value="{{ selfUserId }}">
+                        <input type="hidden" id="isFollowing" value="{{ isFollowing }}">
+                        {% if selfProfile!=True %}
+                        <div class="follow-btn" id="btn">
+
+                            <button id="followButton">Follow <i class="fa-solid fa-user-plus"></i></button>
+
+                            <button id="unfollowButton">Unfollow <i class="fa-solid fa-user-minus"></i></button>
+
+                            <!-- <button id="followButton">Following</button> -->
+                        </div>
+                        {%endif%}
+                    </div>
+                </div>
+                {% if selfProfile==True %}
+                <div class="mobile-logout">
+                    <a href="/logout"><span>Logout <i class="fa-solid fa-right-from-bracket"></i></span></a>
+                </div>
+                {%endif%}
+                <div class="second-container">
+                    <div class="bio">
+                        <b>About : </b>
+                        <p>{{userBio}}</p>
+                    </div>
+                    <div class="interests">
+                        <b>
+                            <p>Interests : </p>
+                        </b>
+                        <p>{{userInterests}}</p>
+                    </div>
+                    <div class="joining">
+                        <p id="light">Joined {{userCreationInWords}}</p>
+                    </div>
+                </div>
+                <div class="third-container">
+                    <b>
+                        <p>Posts</p>
+                    </b>
+                </div>
+                <div class="fourth-container">
+                    <div class="profile-posts">
+
+                        {% for post in userPosts %}
+                        <a href="/post/{{ post[0] }}" class="post" title="Caption : {{ post[1] }}
+Likes : {{ post[4] }}
+Comments : {{ post[5] }}">
+                            <div class="photo-container">
+                                {% if post[3] == 'video' %}
+                                <video>
+                                    <source src="{{ post[2] }}">
+                                    Your browser does not support the video tag.
+                                </video>
+                                {% elif post[3] == 'photo' %}
+                                <img src="{{ post[2] }}" alt="User Post">
+                                {% endif %}
+                            </div>
+                        </a>
+                        {% endfor %}
+                        {% if selfProfile==True %}
+                        {% if userPosts == [] %}
+                        <div class="post">
+                            <div class="photo-container">
+                                <a href="/createPost"> <img src="../static/assets/createPost.png"
+                                        alt="Create Post Now!" /></a>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </form>
+        </div>
+        <dialog id="searchUserPopup">
+            <div class="searchHeadingContainer">
+                <h3>Search User</h3>
+                <i class="fa-solid fa-xmark" id="userSearchClose"></i>
+            </div>
+            <div class="searchBar">
+                <i class="fa-solid fa-magnifying-glass" id="searchUserIcon"></i>
+                <input type="text" id="searchUserInput" name="searchUser" placeholder="Search User By Name Or Username." />
+            </div>
+            <div class="searchUserResultsContainer">
+            </div>
+        </dialog>
+
+    </div>
+
+    <dialog class="followers" id="followers">
+        <div class="popup-followers-heading">
+            <h3>Followers</h3>
+            <i class="fa-solid fa-xmark" id="close-followers-popup"></i>
+        </div>
+        {% for follower in followers_info %}
+        <a href="/userProfile/@{{ follower[1] }}">
+            <div class="popup-followers">
+                <div class="follower-image-container">
+                    <div class="follower-image">
+                        <img src="{{ follower[2] }}" alt="Profile Picture">
+                    </div>
+                </div>
+                <!-- <p>User ID: {{ follower[0] }}</p> -->
+                <div class="follower-uname">
+                    <p>@{{ follower[1] }}</p>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </dialog>
+
+    <dialog class="following" id="following">
+        <div class="popup-following-heading">
+            <h3>Following</h3>
+            <i class="fa-solid fa-xmark" id="close-following-popup"></i>
+        </div>
+        {% for following in followings_info %}
+        <a href="/userProfile/@{{ following[1] }}">
+            <div class="popup-followings">
+                <div class="following-image-container">
+                    <div class="following-image">
+                        <img src="{{ following[2] }}" alt="Profile Picture">
+                    </div>
+                </div>
+                <!-- <p>User ID: {{ following[0] }}</p> -->
+                <div class="following-uname">
+                    <p>@{{ following[1] }}</p>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </dialog>
+
+    <div class="mobile-bottom-bar">
+        <div class="mbb-btns">
+            <a id="userSearchOpenMobile" class="mbb-button"><i class="fa-solid fa-magnifying-glass"></i></a>
+            <a href="/videoLessons" class="mbb-button"><i class="fa-solid fa-play"></i></a>
+            <a href="/createPost" class="mbb-button"><i class="fa-regular fa-square-plus"></i></a>
+            <a href="/forums" class="mbb-button"><i class="fa-solid fa-book"></i></a>
+            <a href="/sheetMusic" class="mbb-button"><i class="fa-solid fa-music"></i></a>
+          </div>
+    </div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var isFollowing = ($('#isFollowing').val() === 'True');
+
+        if (isFollowing) {
+            $('#followButton').hide();
+            $('#unfollowButton').show();
+        } else {
+            $('#followButton').show();
+            $('#unfollowButton').hide();
+        }
+        function updateFollowerCount(user_id) {
+            $.ajax({
+                type: 'GET',
+                url: '/getFollowers/' + user_id,
+                success: function (response) {
+                    $('#followerCount').text(response);
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error updating follower count:', error);
+                }
+            });
+        }
+        var user_id = $('#userUserId').val();
+        updateFollowerCount(user_id);
+
+        $('#followButton').click(function (event) {
+            event.preventDefault();
+
+            var self_id = $('#selfUserId').val();
+            var user_id = $('#userUserId').val();
+
+            $.ajax({
+                type: 'GET',
+                url: '/followUser/' + self_id + '+' + user_id,
+                success: function (response) {
+                    console.log('User followed successfully.');
+                    $('#followButton').hide();
+                    $('#unfollowButton').show();
+                    updateFollowerCount(user_id);
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error following user:', error);
+                }
+            });
+        });
+
+        $('#unfollowButton').click(function (event) {
+            event.preventDefault();
+
+            var self_id = $('#selfUserId').val();
+            var user_id = $('#userUserId').val();
+
+            $.ajax({
+                type: 'GET',
+                url: '/unfollowUser/' + self_id + '+' + user_id,
+                success: function (response) {
+                    console.log('User unfollowed successfully.');
+                    $('#followButton').show();
+                    $('#unfollowButton').hide();
+                    updateFollowerCount(user_id);
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error unfollowing user:', error);
+                }
+            });
+        });
+    });
+
+
+
+    const openFollowersPopup = document.querySelector('.followers-count')
+    const followerModal = document.querySelector('#followers')
+    const closeFollowersPopup = document.querySelector('#close-followers-popup')
+    openFollowersPopup.addEventListener('click', () => {
+        followerModal.showModal()
+    })
+    closeFollowersPopup.addEventListener('click', () => {
+        followerModal.close()
+    })
+
+    const openFollowingsPopup = document.querySelector('.following-count')
+    const follwingModal = document.querySelector('#following')
+    const closeFollowingPopup = document.querySelector('#close-following-popup')
+    openFollowingsPopup.addEventListener('click', () => {
+        follwingModal.showModal()
+    })
+    closeFollowingPopup.addEventListener('click', () => {
+        follwingModal.close()
+    })
+</script>
+<script src="../static/userSearch.js"></script>
+</html>

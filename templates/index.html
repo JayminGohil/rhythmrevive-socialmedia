@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RhythmRevive </title>
+  <link rel="stylesheet" href="../static/index.css">
+  <link rel="stylesheet" href="../static/userSearch.css">
+  <link rel="icon" type="image/x-icon" href="../static/favicon.ico" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://kit.fontawesome.com/cae20e7add.js" crossorigin="anonymous"></script>
+
+
+</head>
+
+<body>
+  <nav>
+    <a href="/" id="nav-logo">RhythmRevive</a>
+    <div class="nav-icons-desktop">
+      <a href="/createPost"><i class="fa-regular fa-square-plus"></i></a>
+      <a href="/messages"><i class="fa-regular fa-message"></i></a>
+    </div>
+    <div class="nav-icons-mobile">
+      <a href="/messages"><i class="fa-regular fa-message"></i></a>
+      <div class="nav-mobile-profile">
+
+        <!-- Mobile User Profile Picture -->
+        <a href="/userProfile/"><img src="{{userPfpPath}}"></a>
+      </div>
+    </div>
+  </nav>
+  <div class="main-container">
+    <!-- Sidebar -->
+    <div class="side-bar">
+      <div class="side-bar-navs">
+        <a href="/" class="sbn-button active"><i class="fa-solid fa-house"></i>Home</a>
+        <a class="sbn-button" id="userSearchOpen"><i class="fa-solid fa-magnifying-glass"></i>Search</a>
+        <a href="/videoLessons" class="sbn-button"><i class="fa-solid fa-play"></i>Video Lessons</a>
+        <a href="/forums" class="sbn-button"><i class="fa-solid fa-book"></i>Forums</a>
+        <a href="/sheetMusic" class="sbn-button"><i class="fa-solid fa-music"></i>Sheet Music</a>
+      </div>
+      <div class="side-bar-profile">
+        <div class="side-bar-image">
+          <!-- Desktop User Profile Picture -->
+          <a href="/userProfile/"><img src="{{userPfpPath}}"></a>
+        </div>
+        <a href="/logout" class="logout-button">Logout</a>
+      </div>
+    </div>
+    <!-- Posts Div -->
+    <input type="hidden" id="selfUserId" value="{{userUserId}}" />
+    <div class="posts-container">
+
+    </div>
+    <div class="centered-div" id="link-copy">
+      <span>Link Copied!</span>
+    </div>
+    <dialog id="searchUserPopup">
+
+      <div class="searchHeadingContainer">
+        <h3>Search User</h3>
+        <i class="fa-solid fa-xmark" id="userSearchClose"></i>
+      </div>
+
+      <div class="searchBar">
+        <i class="fa-solid fa-magnifying-glass" id="searchUserIcon"></i>
+        <input type="text" id="searchUserInput" name="searchUser" placeholder="Search User By Name Or Username." autocomplete="off"/>
+      </div>
+
+      <div class="searchUserResultsContainer">
+        <!-- <a href="/userProfile/@bobby309">
+          <div class="searchUserResults">
+            <div class="result-image-container">
+              <div class="result-image">
+                <img src="../static/storage/pfps/default_pfp.png">
+              </div>
+            </div>
+            <div class="result-names">
+              <div class="result-username">
+                <span>@bobby309</span>
+              </div>
+              <div class="result-name">
+                <span>•</span>
+                <span>Bobby Joshi</span>
+              </div>
+            </div>
+          </div>
+        </a> -->
+      </div>
+
+    </dialog>
+
+  </div>
+
+
+  <div class="mobile-bottom-bar">
+    <div class="mbb-btns">
+      <a id="userSearchOpenMobile" class="mbb-button"><i class="fa-solid fa-magnifying-glass"></i></a>
+      <a href="/videoLessons" class="mbb-button"><i class="fa-solid fa-play"></i></a>
+      <a href="/createPost" class="mbb-button post"><i class="fa-regular fa-square-plus"></i></a>
+      <a href="/forums" class="mbb-button"><i class="fa-solid fa-book"></i></a>
+      <a href="/sheetMusic" class="mbb-button"><i class="fa-solid fa-music"></i></a>
+    </div>
+  </div>
+</body>
+<script src="../static/userSearch.js"></script>
+<script>
+
+  $(document).ready(function () {
+
+    $(document).on('click', '.fa-paper-plane', function () {
+      var postid = $(this).closest('.user-post').find('.like-button').data('postid');
+      copyPostURL(postid);
+    });
+
+    function copyPostURL(postId) {
+      var postURL = window.location.origin + '/post/' + postId;
+      var linkCopySpan = document.getElementById('link-copy');
+
+      var textarea = document.createElement('textarea');
+      textarea.value = postURL;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'absolute';
+      textarea.style.left = '-9999px';
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+
+      linkCopySpan.style.display = 'block';
+      setTimeout(function () {
+        linkCopySpan.style.display = 'none';
+      }, 1500);
+    }
+
+    var start_index = 0;
+    var batch_size = 5;
+    var fetching = true;
+    var userid = $('#selfUserId').val();
+
+    function fetchPosts() {
+      $.ajax({
+        url: '/fetch-posts',
+        type: 'GET',
+        data: { start_from: start_index, current_user_id: userid },
+        success: function (response) {
+          if (response.posts.length < batch_size) {
+            fetching = false;
+          }
+          response.posts.forEach(function (post) {
+            var dateString = post.timestamp;
+            var date = new Date(dateString + " UTC");
+            date.setHours(date.getHours() - 5);
+            date.setMinutes(date.getMinutes() - 30);
+
+            var formattedDate = formatDate(date);
+            console.log(formattedDate);
+
+            function formatDate(date) {
+              var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+              var hours = date.getHours();
+              var minutes = date.getMinutes();
+              var ampm = hours >= 12 ? 'PM' : 'AM';
+              hours = hours % 12;
+              hours = hours ? hours : 12;
+              minutes = minutes < 10 ? '0' + minutes : minutes;
+              var formattedDate = date.getDate() + ' ' + months[date.getMonth()] + ' ' + date.getFullYear() + ' ' + hours + ':' + minutes + ' ' + ampm;
+              return formattedDate;
+            }
+            var heartIconClass = post.liked_by_user ? 'fa-solid fa-heart' : 'fa-regular fa-heart';
+            var mediaHTML = '';
+
+            if (post.media_type === 'photo') {
+              mediaHTML = `<img class="user-post-media" src="${post.media_url}">`;
+            } else if (post.media_type === 'video') {
+              mediaHTML = `<video class="user-post-media" controls>
+                        <source src="${post.media_url}" type="video/mp4">
+                    </video>`;
+            }
+
+            var postHTML = `
+        <div class="posts-container2">
+            <div class="user-post">
+                <div class="user-post-profile">
+                    <div class="user-profile-image">
+                        <img src="${post.user_pfp}">
+                    </div>
+                    <a href="/userProfile/@${post.user_name}">@${post.user_name}</a>
+                </div>
+                <div class="user-post-content">
+                    <div class="user-post-medias">
+                        ${mediaHTML}
+                    </div>
+                </div>
+                <div class="user-post-btns">
+                    <button class="like-button" data-postid="${post.post_id}">
+                        <i class="fa-regular ${heartIconClass}"></i>
+                    </button>
+                    <a href="/post/${post.post_id}"><i class="fa-regular fa-comment"></i></a>
+                    <i class="fa-regular fa-paper-plane"></i>
+                </div>
+                <div class="user-post-likes">
+                    <a href="/" id="${post.post_id}">${post.like_count}</a><span>Likes</span>
+                    <p>•</p>
+                    <a href="/">${post.comment_count} Comments</a>
+                </div>
+                <div class="user-post-caption">
+                    <p>${post.caption}</p>
+                </div>
+                <div class="user-post-timestamp">
+                    <p>${formattedDate}</p>
+                </div>
+            </div>
+        </div>
+    `;
+            $('.posts-container').append(postHTML);
+          });
+
+          start_index += response.posts.length;
+        },
+        error: function (xhr, status, error) {
+          console.error('Error fetching posts:', error);
+        }
+      });
+    }
+
+    fetchPosts();
+    setInterval(function () {
+      if (fetching) {
+        fetchPosts();
+      }
+    }, 1500);
+
+    $(document).on('click', '.like-button', function () {
+      var $button = $(this);
+      var postid = $button.data('postid');
+      var userid = $('#selfUserId').val();
+      var isLiked = $button.find('i').hasClass('fa-solid');
+      var postLikes = Number(document.getElementById(postid).innerText);
+      var updatedLikes = document.getElementById(postid);
+      console.log(postLikes);
+      if (isLiked) {
+        updatedLikes.innerText = `${postLikes - 1}`;
+        removeLike(userid, postid, $button);
+      } else {
+        updatedLikes.innerText = `${postLikes + 1}`;
+        addLike(userid, postid, $button);
+      }
+    });
+
+    function addLike(userid, postid, $button) {
+      $.ajax({
+        url: '/addlike/' + userid + '/' + postid,
+        type: 'POST',
+        success: function (response) {
+          console.log(response);
+          $button.find('i').removeClass('fa-regular').addClass('fa-solid');
+        },
+        error: function (xhr, status, error) {
+          console.error('Error adding like:', error);
+        }
+      });
+    }
+
+
+    function removeLike(userid, postid, $button) {
+      $.ajax({
+        url: '/removeLike/' + userid + '/' + postid,
+        type: 'POST',
+        success: function (response) {
+          console.log(response);
+          $button.find('i').removeClass('fa-solid').addClass('fa-regular');
+        },
+        error: function (xhr, status, error) {
+          console.error('Error removing like:', error);
+        }
+      });
+    }
+
+    function fetchLikes(postid) {
+      $.ajax({
+        url: '/fetchLikes/' + postid,
+        type: 'GET',
+        success: function (response) {
+          var likesCount = response.likes_count;
+          return likesCount;
+        },
+        error: function (xhr, status, error) {
+          console.error('Error fetching likes:', error);
+        }
+      });
+    }
+
+  });
+
+</script>
+
+</html>

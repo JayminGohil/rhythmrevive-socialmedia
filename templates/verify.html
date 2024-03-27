@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verify OTP</title>
+    <link rel="icon" type="image/x-icon" href="../static/favicon.ico" />
+    <link rel="stylesheet" href="../static/login.css" />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+   {% include "headerLogo.html" %}   
+
+    <div class="form-container">
+        <form method="post" action="{{ url_for('verify') }}">
+            <h3>Enter OTP</h3>
+            {% if otpError %}
+            <span class="error-msg">{{ otpError }}</span>
+            {% endif %}
+            <span class="error-msg" id="otpError" style="display: none"></span>
+            <input type="number" name="userOTP" id="otpInput" required placeholder="Enter 6 Digit OTP" required
+                pattern="[0-9]{6}" />
+            <input type="submit" name="submit" id="submitOTP" value="Verify OTP" class="form-btn" />
+            <p>
+            <div id="countdown"></div>
+            </p>
+
+        </form>
+    </div>
+</body>
+<script>
+    var countdownTime = 60;
+
+    function updateCountdown() {
+        var otpInput = document.getElementById('otpInput');
+        var submitOTP = document.getElementById('submitOTP');
+        var countdownElement = document.getElementById('countdown');
+        countdownElement.textContent = 'The OTP Will Expire In : ' + countdownTime + ' seconds';
+        if (countdownTime <= 0) {
+            countdownElement.innerHTML = 'Your OTP has expired. <a href="{{ url_for("resendOTP") }}" >Resend OTP</a>';
+            otpInput.disabled = true;
+            submitOTP.disabled = true;
+            otpInput.style.border = '2px solid red';
+            otpInput.placeholder = 'Your OTP Has Expired';
+
+        } else {
+            countdownTime--;
+            setTimeout(updateCountdown, 1000);
+        }
+    }
+    updateCountdown();
+
+    setTimeout(function () {
+        window.location.href = '/sessionExpired';
+    }, 120000);
+
+</script>
+
+</html>

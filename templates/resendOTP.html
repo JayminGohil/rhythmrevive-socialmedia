@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verify OTP</title>
+    <link rel="icon" type="image/x-icon" href="../static/favicon.ico" />
+    <link rel="stylesheet" href="../static/login.css" />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    {% include "headerLogo.html" %}   
+
+    <div class="form-container">
+            <span class="error-msg">Your OTP Has Been Resent To Your Email</span>
+        </form>
+    </div>
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        window.location.href = '/verify';
+    });
+</script>
+</html>

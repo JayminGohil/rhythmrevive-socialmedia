@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>login form</title>
+    <link rel="icon" type="image/x-icon" href="../static/admin-favicon.ico" />
+
+    <link rel="stylesheet" href="../static/login.css" />
+
+
+    <meta property="og:title" content="RhythmRevive">
+    <meta property="og:description" content="Login to RhythmRevive now and start posting!">
+    <meta property="og:image" content="https://cdn.discordapp.com/attachments/1031083230994112572/1209063029795196949/rr.png?ex=65e58eb1&is=65d319b1&hm=600e1e22f1007ccc89869f0b71fc31e8ec2bb880c48be2c8e157848e24750cf4&">
+    <meta property="og:url" content="{{ url_for('login', _external=True) }}">
+    <meta property="og:type" content="website">
+  </head>
+
+  <body>
+  {% include "headerLogo.html" %}   
+
+
+    <div class="form-container">
+      <form action="" method="post">
+        <h3>ADMIN LOGIN</h3>
+        {% if loginmsg and loginmsg == "Registration Complete! You Can Now Login" %}
+         <span class="error-msg">{{ loginmsg }}</span>
+        {% endif %}
+        {% if loginError %}
+         <span class="error-msg">{{ loginError }}</span>
+        {% endif %}
+        <input type="text" name="username" required placeholder="Username"/>
+        <input type="password" name="password" required placeholder="Password"/>
+        
+        <input type="submit" name="submit" value="login" class="form-btn" />
+      </form>
+    </div>
+  </body>
+</html>

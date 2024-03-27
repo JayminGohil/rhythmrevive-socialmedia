@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="icon" type="image/x-icon" href="../static/admin-favicon.ico" />
+
+    <link rel="stylesheet" href="../static/adminUsers.css">
+    <link rel="stylesheet" href="../static/userSearch.css">
+    <script src="https://kit.fontawesome.com/cae20e7add.js" crossorigin="anonymous"></script>
+    <link rel='stylesheet'
+        href='https://cdn-uicons.flaticon.com/2.1.0/uicons-bold-straight/css/uicons-bold-straight.css'>
+    <link rel='stylesheet'
+        href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <link rel='stylesheet'
+        href='https://cdn-uicons.flaticon.com/2.1.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.1.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+    <link rel='stylesheet'
+        href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-straight/css/uicons-solid-straight.css'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="top">
+            <div class="logo">
+                <i class="fi fi-bs-admin-alt"></i>
+                <span>Admin Panel</span>
+            </div>
+            <i class="fi fi-bs-menu-burger" id="btn"></i>
+        </div>
+        <div class="user">
+            <img src="../static/assets/admin.png" alt="admin" class="user-img">
+            <div>
+                <p class="bold">{{adminName}}</p>
+                <p>Admin</p>
+            </div>
+        </div>
+
+        <ul>
+
+            <li>
+                <a href="/adminPanel">
+                    <i class="fi fi-sr-objects-column"></i>
+                    <span class="nav-item">Dashboard</span>
+                </a>
+                <span class="tooltip">Dashboard</span>
+            </li>
+            <li>
+                <a href="/adminPanel/analytics">
+                    <i class="fi fi-sr-chart-pie-alt"></i>
+                    <span class="nav-item">Analytics</span>
+                </a>
+                <span class="tooltip">Analytics</span>
+            </li>
+            <li>
+                <a href="/adminPanel/moderation" class="active">
+                    <i class="fi fi-sr-admin-alt"></i>
+                    <span class="nav-item">Moderation</span>
+                </a>
+                <span class="tooltip">Moderation</span>
+            </li>
+            <li>
+                <a href="/adminPanel/posts">
+                    <i class="fi fi-sr-memo-circle-check"></i>
+                    <span class="nav-item">Posts</span>
+                </a>
+                <span class="tooltip">Posts</span>
+            </li>
+            <li>
+                <a href="/adminPanel/manageAdmin">
+                    <i class="fi fi-sr-user-add"></i>
+                    <span class="nav-item">Admins</span>
+                </a>
+                <span class="tooltip">Admins</span>
+            </li>
+            <li>
+                <a href="/adminPanel/badges">
+                    <i class="fi fi-ss-first-award"></i>
+                    <span class="nav-item">Badges</span>
+                </a>
+                <span class="tooltip">Badges</span>
+            </li>
+            <li>
+                <a href="/adminLogout">
+                    <i class="fi fi-bs-sign-out-alt"></i>
+                    <span class="nav-item">Logout</span>
+                </a>
+                <span class="tooltip">Logout</span>
+            </li>
+        </ul>
+
+    </div>
+    <div class="main-content">
+        <h3>All Users : </h3>
+        <div class="users-count-container">
+            <div class="user-count">
+                <span>{{usersCount[0][0]}}</span>
+                <span>Total Users</span>
+            </div>
+            <div class="user-count">
+                <span>{{usersCount[1][0]}}</span>
+                <span>Banned Users</span>
+            </div>
+        </div>
+
+        <h3>Ban a user: </h3>
+        <div class="ban-user-container">
+            <div class="search-user-container">
+                <button type="button" id="userSearchOpen"><i class="fi fi-br-search"></i>Search A User</button>
+            </div>
+            <h3>User Profile Will Be Shown Here</h3>
+            <div class="search-user-result">
+                <div class="user-profile">
+                    <div class="user-image">
+                        <img src="../static/storage/pfps/default_pfp.png" />
+                    </div>
+                    <div class="user-names">
+                        <span>@jaymin</span>
+                        <span>jaymin</span>
+                    </div>
+                </div>
+                <div class="user-details">
+                    <div class="user-email">
+                        <span>User Email : </span>
+                        <span>j@gmail.com</span>
+                    </div>
+                    <div class="user-creation">
+                        <span>User Creation Date : </span>
+                        <span>03-03-2024</span>
+                    </div>
+                    <div class="user-id-container">
+                        <span></span>
+                    </div>
+                </div>
+                <div class="ban-user-btn">
+                    <button type="button"><i class="fi fi-bs-ban"></i>Ban User</button>
+                </div>
+            </div>
+        </div>
+
+        <h3>Unban a user: </h3>
+        <div class="unban-user-container">
+            <div class="search-unban-user-container">
+                <button type="button" id="UnbanUserSearchOpen"><i class="fi fi-br-search"></i>Search A User</button>
+            </div>
+            <h3>User Profile Will Be Shown Here</h3>
+            <div class="search-unbanuser-result">
+                <div class="unban-user-ids">
+                    <span>Ban Identification Number : 5</span>
+                    <span>User Identification Number : 1</span>
+                </div>
+                <div class="unban-user-info">
+                    <span>Username : @bobby309</span>
+                    <span>Email : bobby200543676@gmail.com</span>
+                </div>
+                <div class="unban-user-ban-info">
+                    <span>Banned On : 2024-03-03 21:27:15</span>
+                    <span>Banned For(Reason) : Bad Behaviour</span>
+                </div>
+                <div class="unban-user-btn">
+                    <button type="button"><i class="fi fi-sr-delete-user"></i>Unban User</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <dialog id="searchUserPopup">
+        <div class="searchHeadingContainer">
+            <h3>Search User</h3>
+            <i class="fa-solid fa-xmark" id="userSearchClose"></i>
+        </div>
+        <div class="searchBar">
+            <i class="fa-solid fa-magnifying-glass" id="searchUserIcon"></i>
+            <input type="text" id="searchUserInput" name="searchUser" placeholder="Search User By Name Or Username." autocomplete="off" />
+        </div>
+        <div class="searchUserResultsContainer">
+        </div>
+    </dialog>
+
+    <dialog id="unbanUserPopup">
+        <div class="searchHeadingContainer">
+            <h3>Search User</h3>
+            <i class="fa-solid fa-xmark" id="unbanSearchClose"></i>
+        </div>
+        <div class="searchBar">
+            <i class="fa-solid fa-magnifying-glass" id="searchUserIcon"></i>
+            <input type="text" id="unbanUserInput" name="unbanUser" placeholder="Search User By Name Or Email." />
+        </div>
+        <div class="unbanUserResultsContainer">
+        </div>
+    </dialog>
+
+</body>
+<script src="../static/adminSidebar.js"></script>
+<script>
+    const openSearchPopup = document.querySelector('#userSearchOpen')
+    const userSearchPopup = document.querySelector('#searchUserPopup')
+    const closeSearchPopup = document.querySelector('#userSearchClose')
+    openSearchPopup.addEventListener('click', () => {
+        userSearchPopup.showModal()
+    })
+    closeSearchPopup.addEventListener('click', () => {
+        userSearchPopup.close()
+    })
+
+    const openUnbanPopup = document.querySelector('#UnbanUserSearchOpen')
+    const unbanSearchPopup = document.querySelector('#unbanUserPopup')
+    const closeUnbanPopup = document.querySelector('#unbanSearchClose')
+
+    openUnbanPopup.addEventListener('click', () => {
+        unbanSearchPopup.showModal()
+    })
+    closeUnbanPopup.addEventListener('click', () => {
+        unbanSearchPopup.close()
+    })
+    $(document).ready(function () {
+        $('#searchUserInput').on('input', function () {
+            var query = $(this).val();
+            $.ajax({
+                type: 'GET',
+                url: '/searchFullUsers',
+                data: { query: query },
+                success: function (response) {
+                    $('.searchUserResultsContainer').empty();
+                    response.forEach(function (user) {
+                        var resultHTML = `
+                      <div class="searchUserResults" data-username="${user.username}">
+                        <div class="result-image-container">
+                          <div class="result-image">
+                            <img src="${user.profilePicture}">
+                          </div>
+                        </div>
+                        <div class="result-names">
+                          <div class="result-username">
+                            <span>@${user.username}</span>
+                          </div>
+                          <div class="result-name">
+                            <span>•</span>
+                            <span>${user.name}</span>
+                          </div>
+                          <div class="hidden-email-timestamp">
+                            <span>${user.useremail}</span>
+                            <span>${user.timestamp}</span>
+                            <span>${user.userid}</span>   
+                          </div>
+                        </div>
+                      </div>
+                    `;
+                        $('.searchUserResultsContainer').append(resultHTML);
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error searching users:', error);
+                }
+            });
+        });
+
+        $('#unbanUserInput').on('input', function () {
+            var query = $(this).val();
+            $.ajax({
+                type: 'GET',
+                url: '/searchBannedUsers',
+                data: { query: query },
+                success: function (response) {
+                    $('.unbanUserResultsContainer').empty();
+                    response.forEach(function (user) {
+                        var resultHTML = `
+                        <div class="unban-full-container">
+                            <div class="unban-search-details">
+                                <span>@${user.user_name}</span>
+                                <span>${user.user_email}</span>
+                            </div>
+                            <div class="ban-timestamp">
+                                <span id="bold">Banned On: </span>
+                                <span>${user.banTimestamp}</span>
+                            </div>
+                            <div class="ban-hidden-container">
+                                <span>${user.user_id}</span>
+                                <span>${user.ban_id}</span>
+                                <span>${user.banReason}</span>
+                            </div>
+                        </div>
+                    `;
+                        $('.unbanUserResultsContainer').append(resultHTML);
+                    });
+                    $('.unban-full-container').click(function () {
+                        var banId = $(this).find('.ban-hidden-container span:nth-child(2)').text();
+                        var userId = $(this).find('.ban-hidden-container span:nth-child(1)').text();
+                        var username = $(this).find('.unban-search-details span').eq(0).text().substring(1);
+                        var email = $(this).find('.unban-search-details span').eq(1).text();
+                        var banTimestamp = $(this).find('.ban-timestamp span:nth-child(2)').text();
+                        var banReason = $(this).find('.ban-hidden-container span:nth-child(3)').text();
+                        console.log(banId, userId, username, email, banTimestamp, banReason)
+                        $('.unban-user-ids span').eq(0).text('Ban Identification Number: ' + banId);
+                        $('.unban-user-ids span').eq(1).text('User Identification Number: ' + userId);
+                        $('.unban-user-info span').eq(0).text('Username: @' + username);
+                        $('.unban-user-info span').eq(1).text('Email: ' + email);
+                        $('.unban-user-ban-info span').eq(0).text('Banned On: ' + banTimestamp);
+                        $('.unban-user-ban-info span').eq(1).text('Banned For(Reason): ' + banReason);
+                        const searchunbanuserresult = document.querySelector('.search-unbanuser-result')
+                        searchunbanuserresult.setAttribute('style', 'display:flex')
+                        unbanSearchPopup.close()
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error searching banned users:', error);
+                }
+            });
+        });
+
+
+        $('.unban-user-btn button').click(function () {
+            var banId = $('.unban-user-ids span').eq(0).text().split(':')[1].trim();
+
+            // Show SweetAlert confirmation prompt
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'Do you want to unban this user?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, unban The User!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/unban',
+                        data: { ban_id: banId },
+                        success: function (response) {
+                            Swal.fire(
+                                'Unbanned!',
+                                'User has been successfully unbanned.',
+                                'success'
+                            );
+                        },
+                        error: function (xhr, status, error) {
+                            console.error('Error while unbanning user:', error);
+                            Swal.fire(
+                                'Error!',
+                                'Failed to unban user.',
+                                'error'
+                            );
+                        }
+                    });
+                }
+            });
+        });
+
+
+        $(document).on('click', '.searchUserResults', function () {
+            var username = $(this).data('username');
+            var userProfileLink = "/userProfile/@" + username;
+            var userImageSrc = $(this).find('.result-image img').attr('src');
+            var userName = $(this).find('.result-name span').text();
+            var userEmail = $(this).find('.hidden-email-timestamp span:nth-child(1)').text();
+            var userTimestamp = $(this).find('.hidden-email-timestamp span:nth-child(2)').text();
+            var userId = $(this).find('.hidden-email-timestamp span:nth-child(3)').text();
+            $('.user-profile .user-image img').attr('src', userImageSrc);
+            $('.user-profile .user-names span:nth-child(1)').text('@' + username);
+            $('.user-profile .user-names span:nth-child(2)').text(userName);
+            $('.user-details .user-email span:nth-child(2)').text(userEmail);
+            $('.user-details .user-creation span:nth-child(2)').text(userTimestamp);
+            $('.user-details .user-id-container span').text(userId);
+            $('.search-user-result').show();
+            $('#hiddenUsername').val(username);
+
+            userSearchPopup.close();
+        });
+
+        $(document).on('click', '.ban-user-btn button', function () {
+            var userId = $(this).closest('.search-user-result').find('.user-details .user-id-container span').text();
+            Swal.fire({
+                title: 'Ban User',
+                input: 'text',
+                inputPlaceholder: 'Enter ban reason',
+                showCancelButton: true,
+                confirmButtonText: 'Ban',
+                cancelButtonText: 'Cancel',
+                showLoaderOnConfirm: true,
+                preConfirm: (banReason) => {
+                    return fetch('/banUser', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            userId: userId,
+                            banReason: banReason
+                        }),
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(response.statusText)
+                            }
+                            return response.json();
+                        })
+                        .catch(error => {
+                            Swal.showValidationMessage(`Request failed: ${error}`);
+                        });
+                },
+                allowOutsideClick: () => !Swal.isLoading()
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    if (result.value && result.value.message) {
+                        Swal.fire(
+                            'User Banned!',
+                            result.value.message,
+                            'success'
+                        );
+                    } else {
+                        Swal.fire(
+                            'Error!',
+                            'Something went wrong while banning the user.',
+                            'error'
+                        );
+                    }
+                }
+            });
+        });
+
+    });
+
+</script>
+
+</html>

@@ -1,0 +1,10 @@
+[
+    {
+        "new":"equipped",
+        "guitar":"notequipped",
+        "piano":"notequipped",
+        "flute":"notequipped",
+        "listen":"notequipped",
+        "drum":"notequipped"
+    }
+]

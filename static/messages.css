@@ -1,0 +1,335 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+@font-face {
+    font-family: bbFont;
+    src: url(./assets/fonts/billabong.ttf);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* outline: 1px dotted tomato; */
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #1e1e1e;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    scroll-padding: 10rem;
+}
+#nav-logo {
+    width: 300px;
+    font-family: bbFont;
+    font-size: 2.6rem;
+    color: black;
+    text-decoration: none;
+    background-color: white;
+    padding: 0px 20px 0px 10px;
+    border-bottom-right-radius: 80px;
+    display: flex;
+    justify-content: center;
+}
+
+nav {
+    width: 100%;
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 99;
+}
+.nav-icons-mobile{
+    display: none;
+}
+.nav-icons-desktop {
+    height: 52px;
+    width: 13%;
+    display: none;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: white;
+    border-bottom-left-radius: 80px;
+}
+
+.nav-icons-desktop i{
+    font-size: 2rem;
+}
+
+.main-container {
+    width: 100vw;
+    height: 100vh;
+    padding-top: 1.2rem;
+    display: flex;
+    flex-direction: row;
+    background-color: #1e1e1e;
+    justify-content: center;
+    align-items: center;
+}
+body::-webkit-scrollbar {
+    display: none;
+}
+
+.main-container::-webkit-scrollbar {
+    display: none;
+}
+.side-bar {
+    position: fixed;
+    left: 0rem;
+    width: 16rem;
+    height: 92.5vh;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 98;
+}
+
+.side-bar-navs {
+    margin-top: 2.5rem;
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.side-bar-profile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-bottom: 1rem;
+}
+
+a{
+    text-decoration: none;
+    color:black;
+}
+
+a.sbn-button {
+    max-height: 1.5rem;
+    max-width: 12.5rem;
+    height: auto;
+    width: auto;
+    padding: 20px;
+    display: flex;
+    justify-content: flex-start;
+    gap:2rem;
+    align-items: center;
+    background-color: #fff;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 0px 20px 20px 0px;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 2px 2px 25px black;
+}
+a.sbn-button.active {
+    max-height: 1.5rem;
+    max-width: 15rem;
+    background-color: black;
+    color: white;
+}
+a.sbn-button:hover {
+    background-color: black;
+    color: white;
+    box-shadow: 2px 2px 25px white;
+    max-width: 14rem;
+    width: 14rem;
+    /* max-height: 2rem;
+    height: 1.7rem; */
+}
+
+
+.side-bar-image {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 3px solid white;
+    overflow: hidden;
+}
+
+.side-bar-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+a.logout-button {
+    max-height: 2.5rem;
+    max-width: 15rem;
+    height: auto;
+    width: auto;
+    padding: 10px 20px;
+    background-color: #fff;
+    color: black;
+    text-decoration: none;
+    border-radius: 20px 20px 20px 20px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+a.logout-button:hover {
+    background-color: black;
+    color: white;
+    box-shadow: 2px 5px 20px white;
+}
+
+.posts-container {
+    width: 60%;
+    height: 95vh;
+    background-color: #1e1e1e;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    margin-left: 300px;
+}
+
+.mobile-bottom-bar{
+    display: none;
+}
+
+.messages-container{
+    margin-top: 40px;
+    width: 100%;
+    height: 90%;
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+}
+.first-container{
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    border-bottom: 1px solid black;
+}
+.second-container{
+    max-height: 90%;
+    overflow: auto;
+}
+.messages-user-container{
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    gap: 20px;
+    align-items: center;
+    border-bottom: 1px solid grey;
+}
+
+.messages-user-name span{
+    font-weight: bolder;
+}
+.messages-user-pfp {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 3px solid black;
+    overflow: hidden;
+}
+
+.messages-user-pfp img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+@media only screen and (max-width: 750px) {
+    nav {
+        background-color: white;
+    }
+    .posts-container{
+        margin-right: 30px;
+    }
+}
+/* Small screens */
+@media only screen and (max-width: 600px) {
+    .side-bar {
+        display: none;
+    }
+    .empty-container{
+        display: none;
+    }
+    .mobile-bottom-bar{
+        position: fixed;
+        bottom: 0;
+        background-color: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1;        
+    }
+    .mbb-btns{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 100vw;
+        height: 40px;
+    }
+    .mbb-button{
+        font-size: 20px;
+        color: white;
+    }
+    nav {
+        background-color: black;
+        width: 100%;
+        position: fixed;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 99;
+    }
+    #nav-logo {
+        width: 200px;
+        font-size: 2rem;
+        background-color: transparent;
+        color: white;
+    }
+    .nav-icons-desktop{
+        display: none;
+    }
+    .nav-icons-mobile{
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        width: 90px;
+        margin: 5px 15px;
+    }
+    .nav-icons-mobile a i{
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        color: white;
+        font-size: 1.5rem;
+    }
+    .nav-mobile-profile {
+        width: 1.5rem;
+        height: 1.5rem;
+        border-radius: 50%;
+        border: 3px solid white;
+        overflow: hidden;
+    }
+    
+    .nav-mobile-profile img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+    .main-container{
+        padding-top: 0rem;
+    }
+    .posts-container{
+        width: 90%;
+        margin-top: 0px;
+        gap:0px;
+        margin-left: 0px;
+        margin-right: 0px;
+        height: 85vh;
+    }
+
+}
+
+/* Large screens */

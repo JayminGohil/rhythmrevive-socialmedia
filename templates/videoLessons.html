@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RhythmRevive </title>
+  <link rel="stylesheet" href="../static/lessonsheet.css">
+  <link rel="stylesheet" href="../static/userSearch.css">
+  <link rel="icon" type="image/x-icon" href="../static/favicon.ico" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://kit.fontawesome.com/cae20e7add.js" crossorigin="anonymous"></script>
+
+
+</head>
+
+<body>
+  <nav>
+    <a href="/" id="nav-logo">RhythmRevive</a>
+    <div class="nav-icons-desktop">
+      <a href="/createPost"><i class="fa-regular fa-square-plus"></i></a>
+      <a href="/messages"><i class="fa-regular fa-message"></i></a>
+    </div>
+    <div class="nav-icons-mobile">
+      <a href="/messages"><i class="fa-regular fa-message"></i></a>
+      <div class="nav-mobile-profile">
+
+        <!-- Mobile User Profile Picture -->
+        <a href="/userProfile/"><img src="{{userPfpPath}}"></a>
+      </div>
+    </div>
+  </nav>
+  <div class="main-container">
+    <!-- Sidebar -->
+    <div class="side-bar">
+      <div class="side-bar-navs">
+        <a href="/forums" class="sbn-button"><i class="fa-solid fa-house"></i>Home</a>
+        <a class="sbn-button" id="userSearchOpen"><i class="fa-solid fa-magnifying-glass"></i>Search</a>
+        <a href="/videoLessons" class="sbn-button active"><i class="fa-solid fa-play"></i>Video Lessons</a>
+        <a href="/" class="sbn-button"><i class="fa-solid fa-book"></i>Forums</a>
+        <a href="/sheetMusic" class="sbn-button"><i class="fa-solid fa-music"></i>Sheet Music</a>
+      </div>
+      <div class="side-bar-profile">
+        <div class="side-bar-image">
+          <!-- Desktop User Profile Picture -->
+          <a href="/userProfile/"><img src="{{userPfpPath}}"></a>
+        </div>
+        <a href="/logout" class="logout-button">Logout</a>
+      </div>
+    </div>
+    <!-- Posts Div -->
+    <input type="hidden" id="selfUserId" value="{{userUserId}}" />
+    <div class="posts-container">
+
+    </div>
+
+    <dialog id="searchUserPopup">
+
+      <div class="searchHeadingContainer">
+        <h3>Search User</h3>
+        <i class="fa-solid fa-xmark" id="userSearchClose"></i>
+      </div>
+
+      <div class="searchBar">
+        <i class="fa-solid fa-magnifying-glass" id="searchUserIcon"></i>
+        <input type="text" id="searchUserInput" name="searchUser" placeholder="Search User By Name Or Username." />
+      </div>
+
+      <div class="searchUserResultsContainer">
+
+      </div>
+
+    </dialog>
+
+  </div>
+
+
+  <div class="mobile-bottom-bar">
+    <div class="mbb-btns">
+      <a id="userSearchOpenMobile" class="mbb-button"><i class="fa-solid fa-magnifying-glass"></i></a>
+      <a href="/videoLessons" class="mbb-button"><i class="fa-solid fa-play"></i></a>
+      <a href="/createPost" class="mbb-button post"><i class="fa-regular fa-square-plus"></i></a>
+      <a href="/forums" class="mbb-button"><i class="fa-solid fa-book"></i></a>
+      <a href="/sheetMusic" class="mbb-button"><i class="fa-solid fa-music"></i></a>
+    </div>
+  </div>
+</body>
+<script src="../static/userSearch.js"></script>
+<script>
+
+  $(document).ready(function () {
+    var start_index = 0;
+    var batch_size = 5;
+    var fetching = true;
+    var userid = $('#selfUserId').val();
+
+    function fetchPosts() {
+      $.ajax({
+        url: '/fetch-lessons',
+        type: 'GET',
+        data: { start_from: start_index },
+        success: function (response) {
+          if (response.lessons.length < batch_size) {
+            fetching = false;
+          }
+          response.lessons.forEach(function (lesson) {
+            if (lesson.approval_status === 'approved') {
+              var dateString = lesson.timestamp;
+              var date = new Date(dateString + " UTC");
+              date.setHours(date.getHours() - 5);
+              date.setMinutes(date.getMinutes() - 30);
+
+              var formattedDate = formatDate(date);
+              console.log(formattedDate);
+
+              function formatDate(date) {
+                var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                var hours = date.getHours();
+                var minutes = date.getMinutes();
+                var ampm = hours >= 12 ? 'PM' : 'AM';
+                hours = hours % 12;
+                hours = hours ? hours : 12; // Handle midnight
+                minutes = minutes < 10 ? '0' + minutes : minutes;
+                var formattedDate = date.getDate() + ' ' + months[date.getMonth()] + ' ' + date.getFullYear() + ' ' + hours + ':' + minutes + ' ' + ampm;
+                return formattedDate;
+              }
+              var mediaHTML = '';
+              if (lesson.media_type === 'photo') {
+                mediaHTML = `<img class="user-post-media" src="${lesson.media_url}">`;
+              } else if (lesson.media_type === 'video') {
+                mediaHTML = `<video class="user-post-media" controls>
+                                <source src="${lesson.media_url}" type="video/mp4">
+                            </video>`;
+              }
+
+              var postHTML = `
+                            <div class="posts-container2">
+                                <div class="user-post">
+                                    <div class="user-post-profile">
+                                        <div class="user-profile-image">
+                                            <img src="${lesson.user_pfp}">
+                                        </div>
+                                        <a href="/userProfile/@${lesson.user_name}">@${lesson.user_name}</a>
+                                    </div>
+                                    <div class="user-post-content">
+                                        <div class="user-post-medias">
+                                            ${mediaHTML}
+                                        </div>
+                                    </div>
+                                    <div class="user-post-caption">
+                                        <p>${lesson.caption}</p>
+                                    </div>
+                                    <div class="user-post-timestamp">
+                                        <p>${formattedDate}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+              $('.posts-container').append(postHTML);
+            }
+          }
+          );
+
+          start_index += response.lessons.length;
+        },
+        error: function (xhr, status, error) {
+          console.error('Error fetching lessons:', error);
+        }
+      });
+    }
+
+    fetchPosts();
+    setInterval(function () {
+      if (fetching) {
+        fetchPosts();
+      }
+    }, 1500);
+  });
+
+
+</script>
+
+</html>

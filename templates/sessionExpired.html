@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verify OTP</title>
+    <link rel="icon" type="image/x-icon" href="../static/favicon.ico" />
+    <link rel="stylesheet" href="../static/login.css" />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    {% include "headerLogo.html" %}   
+
+    <div class="form-container">
+        <form method="post">
+            <h3>Session Expired</h3>
+            <a href="/register" class="form-btn" style="
+            display: flex;
+            width: 100%;
+            padding: 10px 15px;
+            border-radius: 5px;
+            align-content: center;
+            justify-content: center;
+        ">
+                Go Back To Registration
+            </a>
+        </form>
+    </div>
+</body>
+
+</html>

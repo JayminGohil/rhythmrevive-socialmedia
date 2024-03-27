@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OTP Verification</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        background-color: #eee;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      h2 {
+        color: #333;
+      }
+
+      p {
+        margin-bottom: 20px;
+      }
+
+      span {
+        background-color: #f0f0f0;
+        padding: 2px 5px;
+      }
+
+      .header {
+        text-align: center;
+        margin: 20px 0;
+      }
+
+      .header img.logo {
+        max-width: 70px;
+        height: auto;
+        margin-right: 10px;
+      }
+
+      .header img.name-logo {
+        max-width: 180px;
+        height: auto;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <img
+          class="name-logo"
+          src="https://cdn.discordapp.com/attachments/1144273100112932914/1193134759510016061/mailPNG.png?ex=65ab9c56&is=65992756&hm=acccd697bd26ffae524419a0904212fa1fed5ac8c9fbbe23f3a9eabf40b72060&"
+          alt="Company name logo"
+        />
+        <!-- <p></p> -->
+      </div>
+      <h2>Verification Code For RhythmRevive</h2>
+      <p>Hi <b>{{ session['user_data']['name'] }}</b>,</p>
+
+      <p>
+        Thank you for registering with RythmRevive. To complete your
+        registration, please enter the following OTP (One-Time Password) on the
+        verification page:
+      </p>
+
+      <center><h2>{{ session['user_data']['user_otp'] }}</h2></center>
+
+      <p>
+        If you didn't request this OTP, please ignore this email. Your account
+        is secure.
+      </p>
+      <p>
+        Best regards,<br />
+        RythmRevive Team
+      </p>
+    </div>
+  </body>
+</html>

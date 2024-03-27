@@ -1,0 +1,850 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+@font-face {
+    font-family: bbFont;
+    src: url(./assets/fonts/billabong.ttf);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* outline: 1px dotted tomato; */
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #1e1e1e;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    scroll-padding: 10rem;
+}
+
+#nav-logo {
+    width: 300px;
+    font-family: bbFont;
+    font-size: 2.6rem;
+    color: black;
+    text-decoration: none;
+    background-color: white;
+    padding: 0px 20px 0px 10px;
+    border-bottom-right-radius: 80px;
+    display: flex;
+    justify-content: center;
+}
+
+nav {
+    width: 100%;
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 99;
+}
+
+.nav-icons-mobile {
+    display: none;
+}
+
+.nav-icons-desktop {
+    height: 52px;
+    width: 13%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: white;
+    border-bottom-left-radius: 80px;
+}
+
+.nav-icons-desktop i {
+    font-size: 2rem;
+}
+
+.main-container {
+    width: 100vw;
+    height: 100vh;
+    padding-top: 1.2rem;
+    display: flex;
+    flex-direction: row;
+    background-color: #1e1e1e;
+    justify-content: center;
+    align-items: center;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+.main-container::-webkit-scrollbar {
+    display: none;
+}
+
+.side-bar {
+    position: fixed;
+    left: 0rem;
+    width: 16rem;
+    height: 92.5vh;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 98;
+}
+
+.side-bar-navs {
+    margin-top: 2.5rem;
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.side-bar-profile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-bottom: 1rem;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a.sbn-button {
+    max-height: 1.5rem;
+    max-width: 12.5rem;
+    height: auto;
+    width: auto;
+    padding: 20px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 2rem;
+    align-items: center;
+    background-color: #fff;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 0px 20px 20px 0px;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 2px 2px 25px black;
+}
+
+a.sbn-button.active {
+    max-height: 1.5rem;
+    max-width: 15rem;
+    background-color: transparent;
+    border: 1px solid #1e1e1e;
+    color: white;
+}
+a.sbn-button:hover {
+    background-color: transparent;
+    border: 1px solid #1e1e1e;
+    color: white;
+    /* box-shadow: 0px 0px 2px white; */
+    max-width: 14rem;
+    width: 14rem;
+    /* max-height: 2rem;
+    height: 1.7rem; */
+}
+
+
+.side-bar-image {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 3px solid white;
+    overflow: hidden;
+}
+
+.side-bar-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+a.logout-button {
+    max-height: 2.5rem;
+    max-width: 15rem;
+    height: auto;
+    width: auto;
+    padding: 10px 20px;
+    background-color: #fff;
+    color: black;
+    text-decoration: none;
+    border-radius: 20px 20px 20px 20px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+a.logout-button:hover {
+    background-color: black;
+    color: white;
+    box-shadow: 2px 5px 20px white;
+}
+
+.posts-container {
+    width: 60%;
+    height: 100vh;
+    background-color: #1e1e1e;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    margin-left: 150px;
+    margin-top: 90px;
+}
+
+.mobile-bottom-bar {
+    display: none;
+}
+
+.profile-container {
+    width: 100%;
+    height: 100vh;
+    background-color: white;
+    border-radius: 20px;
+    /* margin-top: 45px; */
+    overflow: auto;
+}
+
+.error-container {
+    width: 60%;
+    height: 50vh;
+    background-color: white;
+    border-radius: 20px;
+    /* margin-top: 45px; */
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.error-container span {
+    font-size: 20px;
+    font-weight: bolder;
+    color: black;
+}
+
+.profile-container::-webkit-scrollbar {
+    display: none;
+}
+
+.first-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 5px 0px;
+    border-bottom: 1px solid black;
+}
+
+.profile-image {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 3px solid black;
+    overflow: hidden;
+}
+
+.profile-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.edit-profile {
+    padding: 10px;
+    border-radius: 25px;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.edit-profile a p,
+span {
+    color: black;
+}
+
+.edit-profile a p {
+    display: flex;
+    gap: 10px;
+}
+
+.first-container .names {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+}
+
+#light {
+    opacity: 65%;
+}
+
+.second-container {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+    gap: 15px;
+    padding: 5px 10px;
+    border-bottom: 1px solid black;
+}
+
+.third-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 0px;
+    border-bottom: 1px solid black;
+}
+
+.fourth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+}
+
+
+.profile-posts {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    overflow: auto;
+}
+
+.post {
+    width: calc((100% - 40px) / 3);
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+    /* margin-bottom: 20px; */
+    position: relative;
+    overflow: hidden;
+    border: 1px solid black;
+    transition: all .3s ease-in-out;
+}
+
+.post .photo-container {
+    width: 100%;
+    height: 0;
+    padding-top: 100%;
+    /* Setting the height equal to the width (making it square) */
+    overflow: hidden;
+    position: relative;
+    background-color: #1e1e1e;
+
+}
+
+.post .photo-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all .3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.post .photo-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all .3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.post:hover .photo-container img {
+    scale: 1.1;
+}
+
+.post:hover .photo-container video {
+    scale: 1.1;
+}
+
+.followers-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid black;
+    gap: 10px;
+}
+
+.f1-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.followers-count {
+    /* border: 1px solid grey; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-width: 33%;
+    width: auto;
+    background-color: white;
+    gap: 5px;
+    border-radius: 5px;
+    padding: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+.following-count {
+    /* border: 1px solid grey; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-width: 33%;
+    width: auto;
+    background-color: white;
+    gap: 5px;
+    border-radius: 5px;
+    padding: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+#followerCount,
+#followingCount {
+    font-weight: bolder;
+}
+
+.followers-count span {
+    color: black;
+}
+.following-count span {
+    color: black;
+}
+.follow-btn {
+    display: flex;
+    justify-content: center;
+    width: 33%;
+    height: 100%;
+}
+
+.message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15%;
+}
+
+#followButton {
+    min-width: 35%;
+    width: auto;
+    background-color: #1789e0;
+    color: white;
+    height: 100%;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+#unfollowButton {
+    min-width: 35%;
+    width: auto;
+    background-color: grey;
+    color: white;
+    height: 100%;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+#msgButton {
+    min-width: 60%;
+    width: 100%;
+    background-color: transparent;
+    color: black;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    height: 100%;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.mobile-logout {
+    display: none;
+    justify-content: end;
+    padding-right: 6%;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.mobile-logout a span {
+    color: white;
+    background-color: #1e1e1e;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+#msgatag {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* Followers Popup */
+#followers {
+    max-width: 100ch;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 35%;
+    width: 35%;
+    max-height: 70%;
+    overflow: auto;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+#followers::backdrop{
+    background-color: black;
+    opacity: .6;
+}
+.follower-image {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: 3px solid black;
+    overflow: hidden;
+}
+
+.follower-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.popup-followers-heading{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.popup-followers-heading i{
+    font-size: 20px;
+    cursor: pointer;
+}
+.popup-followers{
+    height: 50px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid grey;
+}
+.popup-followers .follower-uname p {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 100%; /* Adjust the maximum width as per your requirement */
+}
+.follower-image-container{
+    width: 30%;
+}
+.follower-uname{
+    width: 70%;
+}
+.badge-photo-container{
+    width: 35px;
+    height: 35px;
+}
+.badge-photo-container img{
+    width: 35px;
+    height: 35px;
+}
+/*  Followers Popup */
+
+/* Following Popup */
+#following {
+    max-width: 100ch;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 35%;
+    width: 35%;
+    max-height: 70%;
+    overflow: auto;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+#following::backdrop{
+    background-color: black;
+    opacity: .6;
+}
+.following-image {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: 3px solid black;
+    overflow: hidden;
+}
+
+.following-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.popup-following-heading{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.popup-following-heading i{
+    font-size: 20px;
+    cursor: pointer;
+}
+.popup-followings{
+    height: 50px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid grey;
+}
+.popup-followings .following-uname p {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 100%; /* Adjust the maximum width as per your requirement */
+}
+.following-image-container{
+    width: 30%;
+}
+.following-uname{
+    width: 70%;
+}
+/*  Following Popup */
+
+@media only screen and (max-width: 750px) {
+    nav {
+        background-color: white;
+    }
+
+    .posts-container {
+        margin-right: 30px;
+        margin-left: 300px;
+    }
+
+    .fourth-container {
+        padding: 4px;
+    }
+
+    .profile-posts {
+        gap: 8px;
+    }
+
+    .post {
+        width: calc((100% - 16px) / 3);
+    }
+
+    .profile-container {
+        font-size: 13px;
+    }
+
+    .profile-image {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        border: 3px solid black;
+        overflow: hidden;
+    }
+
+    #msgbtntext {
+        display: none;
+    }
+    .popup-followers{
+        font-size: 12px;
+        padding: 12px;
+    }
+    #followers {
+        max-width: 70%;
+        width: 70%;
+    }
+    .popup-followings{
+        font-size: 12px;
+        padding: 12px;
+    }
+    #following {
+        max-width: 70%;
+        width: 70%;
+    }
+}
+
+/* Small screens */
+@media only screen and (max-width: 600px) {
+    .side-bar {
+        display: none;
+    }
+
+    .empty-container {
+        display: none;
+    }
+
+    .mobile-bottom-bar {
+        position: fixed;
+        bottom: 0;
+        background-color: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1;
+    }
+
+    .mbb-btns {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 100vw;
+        height: 40px;
+    }
+
+    .mbb-button {
+        font-size: 20px;
+        color: white;
+    }
+
+    nav {
+        background-color: black;
+        width: 100%;
+        position: fixed;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 99;
+    }
+
+    #nav-logo {
+        width: 200px;
+        font-size: 2rem;
+        background-color: transparent;
+        color: white;
+    }
+
+    .nav-icons-desktop {
+        display: none;
+    }
+
+    .nav-icons-mobile {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        width: 90px;
+        margin: 5px 15px;
+    }
+
+    .nav-icons-mobile a i {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        color: white;
+        font-size: 1.5rem;
+    }
+
+    .nav-mobile-profile {
+        width: 1.5rem;
+        height: 1.5rem;
+        border-radius: 50%;
+        border: 3px solid white;
+        overflow: hidden;
+    }
+
+    .nav-mobile-profile img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .main-container {
+        padding-top: 0rem;
+    }
+
+    .posts-container {
+        width: 95%;
+        margin-top: 0px;
+        gap: 0px;
+        margin-left: 0px;
+        margin-right: 0px;
+        height: 85vh;
+    }
+
+    .profile-container {
+        font-size: 10px;
+    }
+
+    #followButton,
+    #unfollowButton,
+    #msgButton {
+        font-size: 11px;
+    }
+
+    .profile-image {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        border: 3px solid black;
+        overflow: hidden;
+    }
+
+    .mobile-logout {
+        display: flex;
+    }
+    .btns {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    #btn {
+        text-align: center;
+        padding: 5px 10px;
+        color: #fff;
+        flex-grow: 3;
+    }
+    #followButton,#unfollowButton{
+        width:100%;
+    }
+    .popup-followers{
+        font-size: 10px;
+        padding: 10px;
+    }
+    .popup-followings{
+        font-size: 10px;
+        padding: 10px;
+    }
+}
+
+/* Large screens */

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RhythmRevive </title>
+    <link rel="stylesheet" href="../static/userProfile.css">
+    <link rel="stylesheet" href="../static/userSearch.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/cae20e7add.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <nav>
+        <a href="/" id="nav-logo">RhythmRevive</a>
+        <div class="nav-icons-desktop">
+            <a href="/createPost"><i class="fa-regular fa-square-plus"></i></a>
+            <a href="/"><i class="fa-regular fa-message"></i></a>
+        </div>
+        <div class="nav-icons-mobile">
+            <a href="/"><i class="fa-regular fa-message"></i></a>
+            <a href="/">
+                <div class="nav-mobile-profile">
+            </a>
+            <!-- Mobile User Profile Picture -->
+            <img src="{{selfProfilePfp}}">
+        </div>
+        </div>
+    </nav>
+    <div class="main-container">
+        <!-- Sidebar -->
+        <div class="side-bar">
+            <div class="side-bar-navs">
+                <a href="/" class="sbn-button"><i class="fa-solid fa-house"></i>Home</a>
+                <a class="sbn-button" id="userSearchOpen"><i class="fa-solid fa-magnifying-glass"></i>Search</a>
+                <a href="/videoLessons" class="sbn-button"><i class="fa-solid fa-play"></i>Video Lessons</a>
+                <a href="/forums" class="sbn-button"><i class="fa-solid fa-book"></i>Forums</a>
+                <a href="/sheetMusic" class="sbn-button"><i class="fa-solid fa-music"></i>Sheet Music</a>
+            </div>
+            <div class="side-bar-profile">
+                <div class="side-bar-image">
+                    <!-- Desktop User Profile Picture -->
+                    <a href="/userProfile/"><img src="{{selfProfilePfp}}"></a>
+                </div>
+                <a href="/logout" class="logout-button">Logout</a>
+            </div>
+        </div>
+        <!-- Posts Div -->
+        <div class="posts-container">
+            <div class="error-container">
+                <span>@{{user_name}}</span>
+                <span>This user profile does not exist.</span>
+            </div>
+        </div>
+
+        <dialog id="searchUserPopup">
+            <div class="searchHeadingContainer">
+                <h3>Search User</h3>
+                <i class="fa-solid fa-xmark" id="userSearchClose"></i>
+            </div>
+            <div class="searchBar">
+                <i class="fa-solid fa-magnifying-glass" id="searchUserIcon"></i>
+                <input type="text" id="searchUserInput" name="searchUser" placeholder="Search User By Name Or Username." />
+            </div>
+            <div class="searchUserResultsContainer">
+
+            </div>
+        </dialog>
+    </div>
+    <div class="mobile-bottom-bar">
+        <div class="mbb-btns">
+            <a id="userSearchOpenMobile" class="mbb-button"><i class="fa-solid fa-magnifying-glass"></i></a>
+            <a href="/videoLessons" class="mbb-button"><i class="fa-solid fa-play"></i></a>
+            <a href="/createPost" class="mbb-button"><i class="fa-regular fa-square-plus"></i></a>
+            <a href="/forums" class="mbb-button"><i class="fa-solid fa-book"></i></a>
+            <a href="/sheetMusic" class="mbb-button"><i class="fa-solid fa-music"></i></a>
+        </div>
+    </div>
+</body>
+<script src="../static/userSearch.js"></script>
+</html>

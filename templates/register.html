@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8" />
+   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <title>Registration form</title>
+   <link rel="icon" type="image/x-icon" href="../static/favicon.ico" />
+   <link rel="stylesheet" href="../static/login.css" />
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+   <style>
+      #form2 {
+         display: none;
+      }
+
+      .error-message {
+         color: red;
+      }
+
+      .error-text {
+         color: red;
+         margin-top: 5px;
+         font-size: 14px;
+      }
+   </style>
+</head>
+
+<body>
+   {% include "headerLogo.html" %}
+   <div class="form-container" id="form1">
+      <form method="post" id="registerForm1" action="{{ url_for('register') }}">
+         <h3>Register now</h3>
+
+
+         {% if formError %}
+         <span class="error-msg">{{ formError }}</span>
+         {% endif %}
+
+         <span id="userExistsMessage" class="error-msg"></span>
+
+         <span class="error-msg" id="passwordError" style="display: none;"></span>
+
+         <input type="text" name="name" id="name" required placeholder="Enter your name" />
+
+         <input type="text" name="username" id="username" required placeholder="Enter your desired username" />
+
+         <input type="email" name="email" id="email" required placeholder="Enter your email" />
+
+
+
+
+         <input type="password" name="password" id="password" required placeholder="Enter your password" />
+         <input type="password" name="cpassword" id="cpassword" required placeholder="Confirm your password" />
+         <input type="submit" value="Next" class="form-btn" />
+         <p>Already have an account? <a href="/login">Login Now</a></p>
+      </form>
+   </div>
+
+   <script>
+      var passwordInput = document.getElementById("password");
+      var cpasswordInput = document.getElementById("cpassword");
+
+      function validatePassword() {
+         var password = passwordInput.value;
+         var cpassword = cpasswordInput.value;
+
+         if (password === "" && cpassword === "") {
+            passwordInput.removeAttribute("style");
+            cpasswordInput.removeAttribute("style");
+         }
+
+         if (password && cpassword) {
+            if (password !== cpassword) {
+               passwordInput.setAttribute("style", "border:2px solid red");
+               cpasswordInput.setAttribute("style", "border:2px solid red");
+            } else {
+               passwordInput.setAttribute("style", "border:2px solid green");
+               cpasswordInput.setAttribute("style", "border:2px solid green");
+            }
+         } else {
+            passwordInput.removeAttribute("style");
+            cpasswordInput.removeAttribute("style");
+         }
+      }
+
+
+      passwordInput.addEventListener("input", validatePassword);
+      cpasswordInput.addEventListener("input", validatePassword);
+
+
+      document
+         .getElementById("registerForm1")
+         .addEventListener("submit", function (event) {
+            validatePassword();
+
+            if (passwordError.textContent !== "") {
+               event.preventDefault();
+            }
+         });
+
+      $(document).ready(function () {
+         $('#username').keyup(function () {
+            var username = $(this).val();
+            $.ajax({
+               type: 'POST',
+               url: '/check_user_exists',
+               data: { 'username': username },
+               success: function (response) {
+                  if (response.exists) {
+                     $('#userExistsMessage').text(response.message);
+                     $('#userExistsMessage').css('display', 'block');
+                  } else {
+                     $('#userExistsMessage').text('');
+                     $('#userExistsMessage').css('display', 'none');
+                  }
+               },
+               error: function (xhr, status, error) {
+                  console.error('Error:', error);
+               }
+            });
+         });
+      });
+
+      $(document).ready(function () {
+         $('#email').keyup(function () {
+            var email = $(this).val();
+            $.ajax({
+               type: 'POST',
+               url: '/check_email_exists',
+               data: { 'email': email },
+               success: function (response) {
+                  if (response.exists) {
+                     $('#userExistsMessage').text(response.message);
+                     $('#userExistsMessage').css('display', 'block');
+
+                  } else {
+                     $('#userExistsMessage').text('');
+                     $('#userExistsMessage').css('display', 'none');
+                  }
+               },
+               error: function (xhr, status, error) {
+                  console.error('Error:', error);
+               }
+            });
+         });
+      });
+   </script>
+</body>
+
+</html>

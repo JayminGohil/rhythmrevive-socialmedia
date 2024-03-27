@@ -1,0 +1,20 @@
+<script src="../static/userSearch.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="../static/userSearch.css">
+
+<a class="sbn-button" id="userSearchOpen"><i class="fa-solid fa-magnifying-glass"></i>Search</a>
+<a id="userSearchOpenMobile" class="mbb-button"><i class="fa-solid fa-magnifying-glass"></i></a>
+
+<dialog id="searchUserPopup">
+    <div class="searchHeadingContainer">
+        <h3>Search User</h3>
+        <i class="fa-solid fa-xmark" id="userSearchClose"></i>
+    </div>
+    <div class="searchBar">
+        <i class="fa-solid fa-magnifying-glass" id="searchUserIcon"></i>
+        <input type="text" id="searchUserInput" name="searchUser" placeholder="Search User By Name Or Username." />
+    </div>
+    <div class="searchUserResultsContainer">
+    </div>
+</dialog>

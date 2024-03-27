@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RhythmRevive </title>
+    <link rel="stylesheet" href="../static/singleForum.css">
+    <link rel="icon" type="image/x-icon" href="../static/favicon.ico" />
+    <link rel="stylesheet" href="../static/userSearch.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/cae20e7add.js" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.4/socket.io.js"></script>
+</head>
+
+<body>
+    <nav>
+        <a href="/" id="nav-logo">RhythmRevive</a>
+        <div class="nav-icons-desktop">
+            <a href="/createPost"><i class="fa-regular fa-square-plus"></i></a>
+            <a href="/messages"><i class="fa-regular fa-message"></i></a>
+        </div>
+        <div class="nav-icons-mobile">
+            <a href="/messages"><i class="fa-regular fa-message"></i></a>
+            <div class="nav-mobile-profile">
+
+                <!-- Mobile User Profile Picture -->
+                <a href="/userProfile/"><img src="{{userPfpPath}}"></a>
+            </div>
+        </div>
+    </nav>
+    <div class="main-container">
+        <!-- Sidebar -->
+        <div class="side-bar">
+            <div class="side-bar-navs">
+                <a href="/" class="sbn-button"><i class="fa-solid fa-house"></i>Home</a>
+                <a class="sbn-button" id="userSearchOpen"><i class="fa-solid fa-magnifying-glass"></i>Search</a>
+                <a href="/videoLessons" class="sbn-button"><i class="fa-solid fa-play"></i>Video Lessons</a>
+                <a href="/forums" class="sbn-button active"><i class="fa-solid fa-book"></i>Forums</a>
+                <a href="/sheetMusic" class="sbn-button"><i class="fa-solid fa-music"></i>Sheet Music</a>
+            </div>
+            <div class="side-bar-profile">
+                <div class="side-bar-image">
+                    <!-- Desktop User Profile Picture -->
+                    <a href="/userProfile/"><img src="{{userPfpPath}}"></a>
+                </div>
+                <a href="/logout" class="logout-button">Logout</a>
+            </div>
+        </div>
+        <!-- Posts Div -->
+        <div class="posts-container">
+            <div class="main-forums-container">
+                <div class="other-user-forums">
+
+                    <div class="forum">
+                        <div class="forum-profile-container">
+                            <a class="forum-profile-details" href="/userProfile/@username">
+                                <div class="forum-profile-image">
+                                    <img src="{{forum[5]}}">
+                                </div>
+                                <div class="forum-profile-username">
+                                    <span>@</span>
+                                    <span>{{forum[4]}}</span>
+                                </div>
+                            </a>
+                            <div class="forum-timestamp">
+                                <span id="t1">Posted On : </span>
+                                <span id="t2">{{forum[3]}}</span>
+                            </div>
+                            <a href="/forums" class="forums-back">
+                                <span>Back</span>
+                            </a>
+                        </div>
+                        <div class="forum-details">
+                            <div class="forum-title">
+                                <p>{{forum[2]}}</p>
+                            </div>                            
+                        </div>
+                    </div>
+                    <form class="forum-comment-input" method="post">
+                        <input type="text" name="forumComment" placeholder="Enter Your Comment.."/>
+                        <input type="submit" name="submit" value="Comment"/>
+                    </form>
+                    <div class="forum-comments-container">
+                        <h3>All Responses : </h3>
+                        <h2>{{error}}</h2>
+                        {% for comment in forumComments %}
+                        <div class="forum-comment">
+                            <a class="forum-comment-profile-details" href="/userProfile/@{{comment[5]}}">
+                                <div class="forum-comment-profile-image">
+                                    <img src="{{comment[6]}}">
+                                </div>
+                                <div class="forum-comment-profile-username">
+                                    <span>@</span>
+                                    <span>{{comment[5]}}</span>
+                                </div> 
+                            </a>                            
+                            <div class="forum-comment-text">
+                                <p>{{comment[3]}}</p>
+                            </div>
+                            <div class="forum-comment-timestamp">
+                                <span id="t2">{{comment[4]}}</span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <dialog id="searchUserPopup">
+
+            <div class="searchHeadingContainer">
+                <h3>Search User</h3>
+                <i class="fa-solid fa-xmark" id="userSearchClose"></i>
+            </div>
+
+            <div class="searchBar">
+                <i class="fa-solid fa-magnifying-glass" id="searchUserIcon"></i>
+                <input type="text" id="searchUserInput" name="searchUser"
+                    placeholder="Search User By Name Or Username." />
+            </div>
+
+            <div class="searchUserResultsContainer">
+
+            </div>
+
+        </dialog>
+    </div>
+
+
+    <div class="mobile-bottom-bar">
+        <div class="mbb-btns">
+            <a id="userSearchOpenMobile" class="mbb-button"><i class="fa-solid fa-magnifying-glass"></i></a>
+            <a href="/videoLessons" class="mbb-button"><i class="fa-solid fa-play"></i></a>
+            <a href="/createPost" class="mbb-button post"><i class="fa-regular fa-square-plus"></i></a>
+            <a href="/forums" class="mbb-button"><i class="fa-solid fa-book"></i></a>
+            <a href="/sheetMusic" class="mbb-button"><i class="fa-solid fa-music"></i></a>
+        </div>
+    </div>
+</body>
+<script src="../static/userSearch.js"></script>
+</html>

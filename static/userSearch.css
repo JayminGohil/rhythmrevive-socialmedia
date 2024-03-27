@@ -1,0 +1,189 @@
+#userSearchOpen{
+    cursor: pointer;
+}
+
+#searchUserPopup{
+    max-width: 100ch;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 65%;
+    width: 65%;
+    max-height: 70%;
+    overflow: auto;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+}
+#searchUserPopup::backdrop{
+    background-color: black;
+    opacity: 0.6;
+}
+#unbanUserPopup{
+    max-width: 100ch;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 65%;
+    width: 65%;
+    max-height: 70%;
+    overflow: auto;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+}
+#unbanUserPopup::backdrop{
+    background-color: black;
+    opacity: 0.6;
+}
+.searchHeadingContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid grey;
+}
+.searchHeadingContainer i{
+    font-size: 20px;
+    cursor: pointer;
+}
+.searchBar{
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 15px;
+}
+#searchUserIcon{
+    width: 10%;
+}
+#searchUserInput{
+    width: 90%;
+    border: none;
+    outline: none;
+}
+#unbanUserInput{
+    width: 90%;
+    border: none;
+    outline: none;
+}
+.searchUserResultsContainer{
+    max-height: 280px;
+    overflow: auto;
+}
+.unbanUserResultsContainer{
+    max-height: 280px;
+    overflow: auto;
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 5px;
+    flex-wrap: wrap;
+}
+.ban-timestamp{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    align-items: center;
+}
+.unban-search-details{
+    display: flex;
+    justify-content: space-between;
+    gap:20px;
+}
+.searchUserResults{
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    gap:15px;
+    overflow: auto;
+    border-bottom: 1px solid gray;
+}
+.result-image {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: 3px solid black;
+    overflow: hidden;
+}
+
+.result-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+.result-image-container{
+    width: 20%;
+}
+.result-names{
+    width: 80%;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    gap:10px;
+}
+.result-name span{
+    opacity: 0.7;
+}
+.hidden-email-timestamp{
+    display: none;
+}
+.ban-hidden-container{
+    display: none;
+}
+#bold{
+    font-weight: bolder;
+}
+
+.unban-full-container{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap:20px;
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+    padding-bottom: 5px;
+    cursor: pointer;
+}
+@media only screen and (max-width: 750px) {
+    #searchUserPopup{
+        max-width: 90%;
+        width: 90%;
+        max-height: 70%;
+    }
+    #unbanUserPopup{
+        max-width: 90%;
+        width: 90%;
+        max-height: 70%;
+    }
+    .searchBar{
+        padding: 15px 0px;
+    }
+    .result-image-container{
+        width: 20%;
+    }
+    .result-names{
+        width: 80%;
+        flex-direction: column;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #searchUserPopup{
+        font-size: 12px;
+    }
+    #unbanUserPopup{
+        font-size: 12px;
+    }
+}

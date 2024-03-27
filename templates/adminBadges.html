@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="icon" type="image/x-icon" href="../static/admin-favicon.ico" />
+    <link rel="stylesheet" href="../static/adminBadges.css">
+    <link rel="stylesheet" href="../static/userSearch.css">
+    <script src="https://kit.fontawesome.com/cae20e7add.js" crossorigin="anonymous"></script>
+    <link rel='stylesheet'
+        href='https://cdn-uicons.flaticon.com/2.1.0/uicons-bold-straight/css/uicons-bold-straight.css'>
+    <link rel='stylesheet'
+        href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <link rel='stylesheet'
+        href='https://cdn-uicons.flaticon.com/2.1.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.1.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+    <link rel='stylesheet'
+        href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-straight/css/uicons-solid-straight.css'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="top">
+            <div class="logo">
+                <i class="fi fi-bs-admin-alt"></i>
+                <span>Admin Panel</span>
+            </div>
+            <i class="fi fi-bs-menu-burger" id="btn"></i>
+        </div>
+        <div class="user">
+            <img src="../static/assets/admin.png" alt="admin" class="user-img">
+            <div>
+                <p class="bold">{{adminName}}</p>
+                <p>Admin</p>
+            </div>
+        </div>
+
+        <ul>
+
+            <li>
+                <a href="/adminPanel">
+                    <i class="fi fi-sr-objects-column"></i>
+                    <span class="nav-item">Dashboard</span>
+                </a>
+                <span class="tooltip">Dashboard</span>
+            </li>
+            <li>
+                <a href="/adminPanel/analytics">
+                    <i class="fi fi-sr-chart-pie-alt"></i>
+                    <span class="nav-item">Analytics</span>
+                </a>
+                <span class="tooltip">Analytics</span>
+            </li>
+            <li>
+                <a href="/adminPanel/moderation">
+                    <i class="fi fi-sr-admin-alt"></i>
+                    <span class="nav-item">Moderation</span>
+                </a>
+                <span class="tooltip">Moderation</span>
+            </li>
+            <li>
+                <a href="/adminPanel/posts">
+                    <i class="fi fi-sr-memo-circle-check"></i>
+                    <span class="nav-item">Posts</span>
+                </a>
+                <span class="tooltip">Posts</span>
+            </li>
+            <li>
+                <a href="/adminPanel/manageAdmin">
+                    <i class="fi fi-sr-user-add"></i>
+                    <span class="nav-item">Admins</span>
+                </a>
+                <span class="tooltip">Admins</span>
+            </li>
+            <li>
+                <a href="/adminPanel/badges" class="active">
+                    <i class="fi fi-ss-first-award"></i>
+                    <span class="nav-item">Badges</span>
+                </a>
+                <span class="tooltip">Badges</span>
+            </li>
+            <li>
+                <a href="/adminLogout">
+                    <i class="fi fi-bs-sign-out-alt"></i>
+                    <span class="nav-item">Logout</span>
+                </a>
+                <span class="tooltip">Logout</span>
+            </li>
+        </ul>
+
+    </div>
+    <div class="main-content">
+        {% if msg %}
+        <div class="error-msg-container">
+            <h3>{{msg}}</h3>
+        </div>
+        {% endif %}
+        <h3>Manage Badges</h3>
+        <div class="badges-header">
+            <a href="#add" class="badge-header-btn"><i class="fi fi-rr-square-plus"></i><span>Add a badge</span></a>
+            <a href="#award" class="badge-header-btn"><i class="fi fi-sr-medal"></i><span>Award a user</span></a>
+        </div>
+        <h3>All Available Badges</h3>
+        <div class="default-badges-showcase">
+            {% for badge in allBadges %}
+            <div class="showcase-badge">
+                <span>{{badge[0]}}.{{badge[1]}}</span>
+                <img src="{{badge[2]}}">
+                <span>{{badge[3]}}</span>
+            </div>
+            {% endfor %}
+        </div>
+
+
+
+        <h3>Add a Badge</h3>
+        <form method="post" id="add" class="add-badge-container" enctype="multipart/form-data">
+            <h5>Badge Name</h5>
+            <input type="text" name="badgeName" />
+            <h5>Badge Description</h5>
+            <input type="text" name="badgeDesc" />
+            <h5>Upload Badge(512*512)</h5>
+            <input type="file" name="badgePhoto" />
+            <input type="submit" name="addBadge" value="Add Badge" />
+        </form>
+
+
+        <h3>Award a User</h3>
+        <form method="post" id="award" class="award-badge-container">
+            <button type="button" id="userSearchOpen"><i class="fi fi-br-search"></i>Select User</button>
+            <div class="badge-user">
+                <div class="badge-user-image">
+                    <img src="../static/storage/pfps/default_pfp.png" />
+                </div>
+                <div class="badge-user-names">
+                    <span>Select User</span>
+                    <span>Select User</span>
+                </div>
+            </div>
+            <h5>Select badge</h5>
+            <input type="hidden" name="hiddenUsername" id="hiddenUsername">
+            <select name="awardBadge">
+                {% for badge in allBadges %}
+                <option value="{{badge[1]}}">{{badge[3]}}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" name="awardSubmit" value="Award Badge" />
+        </form>
+    </div>
+    <dialog id="searchUserPopup">
+        <div class="searchHeadingContainer">
+            <h3>Search User</h3>
+            <i class="fa-solid fa-xmark" id="userSearchClose"></i>
+        </div>
+        <div class="searchBar">
+            <i class="fa-solid fa-magnifying-glass" id="searchUserIcon"></i>
+            <input type="text" id="searchUserInput" name="searchUser" placeholder="Search User By Name Or Username." />
+        </div>
+        <div class="searchUserResultsContainer">
+        </div>
+    </dialog>
+</body>
+<script src="../static/adminSidebar.js"></script>
+<script>
+    const openSearchPopup = document.querySelector('#userSearchOpen')
+    const userSearchPopup = document.querySelector('#searchUserPopup')
+    const closeSearchPopup = document.querySelector('#userSearchClose')
+    openSearchPopup.addEventListener('click', () => {
+        userSearchPopup.showModal()
+    })
+    closeSearchPopup.addEventListener('click', () => {
+        userSearchPopup.close()
+    })
+
+    $(document).ready(function () {
+        $('#searchUserInput').on('input', function () {
+            var query = $(this).val();
+            $.ajax({
+                type: 'GET',
+                url: '/searchUsers',
+                data: { query: query },
+                success: function (response) {
+                    $('.searchUserResultsContainer').empty();
+                    response.forEach(function (user) {
+                        var resultHTML = `
+                      <div class="searchUserResults" data-username="${user.username}">
+                        <div class="result-image-container">
+                          <div class="result-image">
+                            <img src="${user.profilePicture}">
+                          </div>
+                        </div>
+                        <div class="result-names">
+                          <div class="result-username">
+                            <span>@${user.username}</span>
+                          </div>
+                          <div class="result-name">
+                            <span>•</span>
+                            <span>${user.name}</span>
+                          </div>
+                        </div>
+                      </div>
+                    `;
+                        $('.searchUserResultsContainer').append(resultHTML);
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error searching users:', error);
+                }
+            });
+        });
+
+        $(document).on('click', '.searchUserResults', function () {
+            var username = $(this).data('username');
+            var userProfileLink = "/userProfile/@" + username;
+            var userImageSrc = $(this).find('.result-image img').attr('src');
+            var userName = $(this).find('.result-name span').text();
+            $('.badge-user-image img').attr('src', userImageSrc);
+            $('.badge-user-names span:nth-child(1)').text('@' + username);
+            $('.badge-user-names span:nth-child(2)').text(userName);
+            $('#hiddenUsername').val(username)
+            userSearchPopup.close()
+        });
+    });
+
+</script>
+
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RhythmRevive </title>
+    <link rel="stylesheet" href="../static/createPost.css">
+    <script src="https://kit.fontawesome.com/cae20e7add.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="../static/userSearch.css">
+    <link rel="icon" type="image/x-icon" href="../static/favicon.ico" />
+</head>
+
+<body>
+    <nav>
+        <a href="/" id="nav-logo">RhythmRevive</a>
+        <div class="nav-icons-desktop">
+            <a href="/createPost"><i class="fa-regular fa-square-plus"></i></a>
+            <a href="/messages"><i class="fa-regular fa-message"></i></a>
+        </div>
+        <div class="nav-icons-mobile">
+            <a href="/messages"><i class="fa-regular fa-message"></i></a>
+            <div class="nav-mobile-profile">
+                <!-- Mobile User Profile Picture -->
+                <a href="/userProfile/"><img src="{{userPfpPath}}"></a>
+            </div>
+        </div>
+    </nav>
+    <div class="main-container">
+        <!-- Sidebar -->
+        <div class="side-bar">
+            <div class="side-bar-navs">
+                <a href="/" class="sbn-button"><i class="fa-solid fa-house"></i>Home</a>
+                <a class="sbn-button" id="userSearchOpen"><i class="fa-solid fa-magnifying-glass"></i>Search</a>
+                <a href="/videoLessons" class="sbn-button"><i class="fa-solid fa-play"></i>Video Lessons</a>
+                <a href="/forums" class="sbn-button"><i class="fa-solid fa-book"></i>Forums</a>
+                <a href="/sheetMusic" class="sbn-button"><i class="fa-solid fa-music"></i>Sheet Music</a>
+              </div>
+            <div class="side-bar-profile">
+                <a href="/userProfile/">
+                    <div class="side-bar-image">
+                        <!-- Desktop User Profile Picture -->
+                        <img src="{{userPfpPath}}">
+                    </div>
+                </a>
+                <a href="/logout" class="logout-button">Logout</a>
+            </div>
+        </div>
+        <!-- Posts Div -->
+        <div class="posts-container">
+            <form class="create-post-container" method="post" enctype="multipart/form-data">
+                <div class="create-heading">
+                    <h3>Create Post</h3>
+                </div>
+                <div class="create-error">
+                    {% if fileError %}
+                    <p>{{ fileError }}</p>
+                    {% endif %}
+                </div>
+                <div class="first-container">
+                    <div class="type-select">
+                        <select name="postType" required>
+                            <option value="post" default>Regular Post</option>
+                            <option value="video">Video Lesson</option>
+                            <option value="sheet">Sheet Music</option>
+                        </select>
+                        <p>*Admin approval required for Video Lessons and Sheet Music</p>
+                    </div>
+                    <div class="file-select">
+                        <input type="file" name="postMedia" id="postMedia" onchange="previewImage()" required />
+                        <p>Allowed Extensions - .jpg,.jpeg,.png,.mkv,.mp4</p>
+                    </div>
+                </div>
+                <div class="second-container" id="previewBG" style="display: none;">
+                    <div class="preview-image" id="preview">
+                        <img src="" alt="media" />
+                    </div>
+                </div>
+                <div class="third-container">
+                    <div class="create-caption">
+                        <p><b>Caption : </b></p>
+                        <textarea id="captionID" type="text" name="postCaption" value="" maxlength="500"
+                            required></textarea>
+                    </div>
+                    <div class="upload-btn">
+                        <input type="submit" name="upload" value="Upload" />
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <dialog id="searchUserPopup">
+            <div class="searchHeadingContainer">
+                <h3>Search User</h3>
+                <i class="fa-solid fa-xmark" id="userSearchClose"></i>
+            </div>
+            <div class="searchBar">
+                <i class="fa-solid fa-magnifying-glass" id="searchUserIcon"></i>
+                <input type="text" id="searchUserInput" name="searchUser" placeholder="Search User By Name Or Username." />
+            </div>
+            <div class="searchUserResultsContainer">
+            </div>
+        </dialog>
+    </div>
+
+
+    <div class="mobile-bottom-bar">
+        <div class="mbb-btns">
+            <a id="userSearchOpenMobile" class="mbb-button"><i class="fa-solid fa-magnifying-glass"></i></a>
+            <a href="/videoLessons" class="mbb-button"><i class="fa-solid fa-play"></i></a>
+            <a href="/createPost" class="mbb-button post"><i class="fa-regular fa-square-plus"></i></a>
+            <a href="/forums" class="mbb-button"><i class="fa-solid fa-book"></i></a>
+            <a href="/sheetMusic" class="mbb-button"><i class="fa-solid fa-music"></i></a>
+          </div>
+    </div>
+    <script>
+        function previewImage() {
+            const fileInput = document.getElementById('postMedia');
+            const previewElement = document.getElementById('preview');
+            previewElement.src = "";
+            previewElement.innerHTML = "";
+            const previewBG = document.getElementById('previewBG')
+
+            if (fileInput.files && fileInput.files[0]) {
+                const fileType = fileInput.files[0].type;
+                if (fileType.match('image.*')) {
+                    const url = new URL(window.URL.createObjectURL(fileInput.files[0]));
+                    const image = document.createElement('img');
+                    image.src = window.URL.createObjectURL(fileInput.files[0]);
+                    previewElement.innerHTML = "";
+                    previewElement.appendChild(image);
+                    previewBG.setAttribute('style', 'display:flex')
+                } else if (fileType.match('video.*')) {
+                    const video = document.createElement('video');
+                    video.setAttribute('controls', true);
+                    video.src = window.URL.createObjectURL(fileInput.files[0]);
+                    previewElement.innerHTML = "";
+                    previewElement.appendChild(video);
+                    previewBG.setAttribute('style', 'display:flex')
+                } else {
+                    alert('Please select an image or video file.');
+                    previewBG.setAttribute('style', 'display:none')
+                }
+            }
+        }
+    </script>
+    <script src="../static/userSearch.js"></script>
+
+</body>
+
+</html>

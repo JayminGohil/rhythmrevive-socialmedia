@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="icon" type="image/x-icon" href="../static/admin-favicon.ico" />
+
+    <link rel="stylesheet" href="../static/adminManage.css">
+    <link rel='stylesheet'
+        href='https://cdn-uicons.flaticon.com/2.1.0/uicons-bold-straight/css/uicons-bold-straight.css'>
+    <link rel='stylesheet'
+        href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <link rel='stylesheet'
+        href='https://cdn-uicons.flaticon.com/2.1.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.1.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+    <link rel='stylesheet'
+        href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-straight/css/uicons-solid-straight.css'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="top">
+            <div class="logo">
+                <i class="fi fi-bs-admin-alt"></i>
+                <span>Admin Panel</span>
+            </div>
+            <i class="fi fi-bs-menu-burger" id="btn"></i>
+        </div>
+        <div class="user">
+            <img src="../static/assets/admin.png" alt="admin" class="user-img">
+            <div>
+                <p class="bold">{{adminName}}</p>
+                <p>Admin</p>
+            </div>
+        </div>
+
+        <ul>
+
+            <li>
+                <a href="/adminPanel">
+                    <i class="fi fi-sr-objects-column"></i>
+                    <span class="nav-item">Dashboard</span>
+                </a>
+                <span class="tooltip">Dashboard</span>
+            </li>
+            <li>
+                <a href="/adminPanel/analytics">
+                    <i class="fi fi-sr-chart-pie-alt"></i>
+                    <span class="nav-item">Analytics</span>
+                </a>
+                <span class="tooltip">Analytics</span>
+            </li>
+            <li>
+                <a href="/adminPanel/moderation">
+                    <i class="fi fi-sr-admin-alt"></i>
+                    <span class="nav-item">Moderation</span>
+                </a>
+                <span class="tooltip">Moderation</span>
+            </li>
+            <li>
+                <a href="/adminPanel/posts">
+                    <i class="fi fi-sr-memo-circle-check"></i>
+                    <span class="nav-item">Posts</span>
+                </a>
+                <span class="tooltip">Posts</span>
+            </li>
+            <li>
+                <a href="/adminPanel/manageAdmin" class="active">
+                    <i class="fi fi-sr-user-add"></i>
+                    <span class="nav-item">Admins</span>
+                </a>
+                <span class="tooltip">Admins</span>
+            </li>
+            <li>
+                <a href="/adminPanel/badges">
+                    <i class="fi fi-ss-first-award"></i>
+                    <span class="nav-item">Badges</span>
+                </a>
+                <span class="tooltip">Badges</span>
+            </li>
+            <li>
+                <a href="/adminLogout">
+                    <i class="fi fi-bs-sign-out-alt"></i>
+                    <span class="nav-item">Logout</span>
+                </a>
+                <span class="tooltip">Logout</span>
+            </li>
+        </ul>
+
+    </div>
+    <div class="main-content">
+        {% if msg %}
+        <div class="msg-error-section">
+            <h3>{{msg}}</h3>
+        </div>
+        {% endif %}
+        <div class="admin-creation">
+            <h3>Create Admin Account</h3>
+            <form class="admin-creation-inputs" id="adminCreationForm" method="post">
+                <h4>Username : </h4>
+                <input type="text" name="newadminusername" required/>
+                <h4>Password : </h4>
+                <input type="password" name="newadminpassword" required/>
+                <input type="submit" value="Create">
+            </form>
+        </div>
+        <div class="admin-manage">
+            <h3>Manage Admins</h3>
+            <table id="admins_data">
+                <tr>
+                    <th>
+                        Admin Id
+                    </th>
+                    <th>
+                        Admin Name
+                    </th>
+                    <th>
+                        Creation Timestamp
+                    </th>
+                    <th>
+                        Actions
+                    </th>
+                </tr>
+                <!-- <tr>
+                    <td data-cell="Admin Id">1</td>
+                    <td data-cell="Admin Name">Jaymin</td>
+                    <td data-cell="Creation Date">01-03-2024</td>
+                    <td data-cell="Actions"><button class="delete-admin" ><i class="fi fi-br-trash" title="Delete Admin"></i></button></td>
+                </tr> -->
+            </table>
+        </div>
+    </div>
+</body>
+<script src="../static/adminSidebar.js"></script>
+<script>
+    document.getElementById('adminCreationForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'Do you want to create this admin?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, create it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('adminCreationForm').submit();
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        function deleteAdmin(adminId) {
+            $.ajax({
+                url: '/deleteAdmin',
+                type: 'POST',
+                data: { id: adminId },
+                success: function (response) {
+                    console.log('Admin deleted successfully');
+                    $('#admin_' + adminId).remove();
+                    Swal.fire(
+                        'Deleted!',
+                        'The admin has been deleted.',
+                        'success'
+                    );
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error:', error);
+                    Swal.fire(
+                        'Error!',
+                        'Failed to delete admin.',
+                        'error'
+                    );
+                }
+            });
+        }
+        $(document).on('click', '.delete-admin', function () {
+            var adminId = $(this).data('id');
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'You will not be able to recover this admin!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    deleteAdmin(adminId);
+                }
+            });
+        });
+        $.ajax({
+            url: '/getAdmins',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                var adminsData = data.admins;
+                var html = '';
+                for (var i = 0; i < adminsData.length; i++) {
+                    html += '<tr id="admin_' + adminsData[i].admin_id + '">';
+                    html += '<td data-cell="Admin Id">' + adminsData[i].admin_id + '</td>';
+                    html += '<td data-cell="Admin Name">' + adminsData[i].admin_username + '</td>';
+                    html += '<td data-cell="Creation Date">' + adminsData[i].created_at + '</td>';
+                    html += '<td data-cell="Actions"><button class="delete-admin" data-id="' + adminsData[i].admin_id + '"><i class="fi fi-br-trash" title="Delete Admin"></i></button></td>';
+                    html += '</tr>';
+                }
+                $('#admins_data').append(html);
+            },
+            error: function (xhr, status, error) {
+                console.error('Error:', error);
+            }
+        });
+    });
+</script>
+
+</html>

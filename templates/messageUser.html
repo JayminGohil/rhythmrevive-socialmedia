@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RhythmRevive </title>
+    <link rel="stylesheet" href="../static/messageUser.css">
+    <link rel="icon" type="image/x-icon" href="../static/favicon.ico" />
+    <link rel="stylesheet" href="../static/userSearch.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/cae20e7add.js" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.4/socket.io.js"></script>
+</head>
+
+<body>
+    <nav>
+        <a href="/" id="nav-logo">RhythmRevive</a>
+        <div class="nav-icons-desktop">
+            <a href="/createPost"><i class="fa-regular fa-square-plus"></i></a>
+            <a href="/messages"><i class="fa-regular fa-message"></i></a>
+        </div>
+        <div class="nav-icons-mobile">
+            <a href="/messages"><i class="fa-regular fa-message"></i></a>
+            <div class="nav-mobile-profile">
+
+                <!-- Mobile User Profile Picture -->
+                <a href="/userProfile/"><img src="{{userPfpPath}}"></a>
+            </div>
+        </div>
+    </nav>
+    <div class="main-container">
+        <!-- Sidebar -->
+        <div class="side-bar">
+            <div class="side-bar-navs">
+                <a href="/" class="sbn-button"><i class="fa-solid fa-house"></i>Home</a>
+                <a class="sbn-button" id="userSearchOpen"><i class="fa-solid fa-magnifying-glass"></i>Search</a>
+                <a href="/videoLessons" class="sbn-button"><i class="fa-solid fa-play"></i>Video Lessons</a>
+                <a href="/forums" class="sbn-button"><i class="fa-solid fa-book"></i>Forums</a>
+                <a href="/sheetMusic" class="sbn-button"><i class="fa-solid fa-music"></i>Sheet Music</a>
+            </div>
+            <div class="side-bar-profile">
+                <div class="side-bar-image">
+                    <!-- Desktop User Profile Picture -->
+                    <a href="/userProfile/"><img src="{{userPfpPath}}"></a>
+                </div>
+                <a href="/logout" class="logout-button">Logout</a>
+            </div>
+        </div>
+        <!-- Posts Div -->
+        <div class="posts-container">
+
+            <div class="main-message-container">
+
+                <div class="first-container">
+                    <div class="other-user-data">
+                        <div class="other-user-image">
+                            <img src="{{ otherUserData[7] }}">
+                        </div>
+                        <div class="other-user-username">
+                            <span><b>@ {{otherUserData[1]}}</b></span>
+                        </div>
+                    </div>
+                    <div class="back-btn">
+                        <a href="/messages"><span><i class="fa-solid fa-arrow-left"></i>Back</span></a>
+                    </div>
+                </div>
+
+                <div class="second-container" id="messages">
+
+                </div>
+
+                <input type="hidden" id="selfUserId" value="{{userUserId}}" />
+                <input type="hidden" id="otherUserId" value="{{otherUserData[0]}}">
+
+                <div class="third-container">
+                    <!-- message form -->
+                    <div class="msg-send">
+                        <input type="text" id="message" name="message" placeholder="Your Message Here!" />
+                        <button id="sendBtn">Send</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <dialog id="searchUserPopup">
+
+            <div class="searchHeadingContainer">
+                <h3>Search User</h3>
+                <i class="fa-solid fa-xmark" id="userSearchClose"></i>
+            </div>
+
+            <div class="searchBar">
+                <i class="fa-solid fa-magnifying-glass" id="searchUserIcon"></i>
+                <input type="text" id="searchUserInput" name="searchUser"
+                    placeholder="Search User By Name Or Username." />
+            </div>
+
+            <div class="searchUserResultsContainer">
+
+            </div>
+
+        </dialog>
+    </div>
+
+
+    <div class="mobile-bottom-bar">
+        <div class="mbb-btns">
+            <a id="userSearchOpenMobile" class="mbb-button"><i class="fa-solid fa-magnifying-glass"></i></a>
+            <a href="/videoLessons" class="mbb-button"><i class="fa-solid fa-play"></i></a>
+            <a href="/createPost" class="mbb-button post"><i class="fa-regular fa-square-plus"></i></a>
+            <a href="/forums" class="mbb-button"><i class="fa-solid fa-book"></i></a>
+            <a href="/sheetMusic" class="mbb-button"><i class="fa-solid fa-music"></i></a>
+          </div>
+    </div>
+</body>
+<script src="../static/userSearch.js"></script>
+<script>
+
+    window.addEventListener('load', () => {
+        const myDiv = document.getElementById('messages');
+        if (myDiv) {
+            myDiv.scrollTop = myDiv.scrollHeight;
+        }
+    });
+
+    $(document).ready(function () {
+        var selfUserId = $('#selfUserId').val();
+        var otherUserId = $('#otherUserId').val();
+
+        console.log("selfUserId:", selfUserId);
+        console.log("otherUserId:", otherUserId);
+        function fetchMessages() {
+            console.log("Fetching messages...");
+            $.ajax({
+                url: '/fetch-messages',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    self_user_id: selfUserId,
+                    other_user_id: otherUserId
+                }),
+                success: function (response) {
+                    console.log("Messages fetched successfully:", response);
+                    $('.second-container').empty();
+                    response.messages.forEach(function (message) {
+                        var messageHTML = '';
+
+                        if (message.sender_id == selfUserId) {
+                            messageHTML = `
+                            <div class="main-user-container">
+                                <div class="main-user-message">
+                                    <span>${message.content}</span>
+                                    <span class="msg-timestamp">${message.timestamp}</span>
+                                </div>
+                            </div>
+                        `;
+                        } else {
+                            messageHTML = `
+                            <div class="other-user-container">
+                                <div class="other-user-message">
+                                    <span>${message.content}</span>
+                                    <span class="msg-timestamp">${message.timestamp}</span>
+                                </div>
+                            </div>
+                        `;
+                        }
+                        $('.second-container').append(messageHTML);
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error fetching messages:', error);
+                }
+            });
+        }
+        fetchMessages()
+        // 
+        // 
+        // 
+        var selfUserId = $('#selfUserId').val();
+        var otherUserId = $('#otherUserId').val();
+        var socket = io.connect("http://127.0.0.1:5000/")
+
+        socket.on('connect', function () {
+            console.log("User Connected!")
+        });
+
+        socket.on('message', function (data) {
+
+        const chatMessagesDiv = document.getElementById('messages');
+        
+
+            console.log(data)
+            var message = JSON.parse(data);
+            if (message.sender_id == selfUserId && message.receiver_id == otherUserId) {
+                html = `<div class="main-user-container">
+                                <div class="main-user-message">
+                                    <span>${message.message}</span>
+                                    <span class="msg-timestamp">${message.timestamp}</span>
+                                </div>
+                            </div>`
+                $('#messages').append(html);
+                chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;
+            }
+            else if (message.sender_id == otherUserId && message.receiver_id == selfUserId) {
+                html = `<div class="other-user-container">
+                                <div class="other-user-message">
+                                    <span>${message.message}</span>
+                                    <span class="msg-timestamp">${message.timestamp}</span>
+                                </div>
+                            </div>`
+                $('#messages').append(html);
+                chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;
+            }
+            else {
+                console.log('not for u buddy')
+            }
+
+        });
+
+        $('#sendBtn').on('click', function () {
+            var now = new Date();
+
+            var year = now.getFullYear();
+            var month = String(now.getMonth() + 1).padStart(2, '0');
+            var day = String(now.getDate()).padStart(2, '0');
+            var hours = String(now.getHours()).padStart(2, '0');
+            var minutes = String(now.getMinutes()).padStart(2, '0');
+
+            var formattedTimestamp = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes;
+            var message = $('#message').val();
+            var data = {
+                message: message,
+                sender_id: selfUserId,
+                receiver_id: otherUserId,
+                timestamp: formattedTimestamp
+            };
+            socket.send(JSON.stringify(data));
+            $('#message').val('');
+        });
+    });
+</script>
+
+</html>

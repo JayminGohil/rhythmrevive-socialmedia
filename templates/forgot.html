@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reset Password</title>
+    <link rel="icon" type="image/x-icon" href="../static/favicon.ico">
+    <link rel="stylesheet" href="../static/login.css" />
+  </head>
+
+  <body>
+  {% include "headerLogo.html" %}   
+
+
+    <div class="form-container">
+      <form action="" method="post">
+        <h3>Reset Password</h3>
+        {% if forgotError %}
+         <span class="error-msg">{{ forgotError }}</span>
+        {% endif %}
+        <input type="email" name="useremail" required placeholder="Enter Your Email"/>       
+        <input type="submit" name="submit" value="Get Password Reset Link" class="form-btn" />
+        <p><a href="/login">Back To Login</a></p>
+      </form>
+    </div>
+  </body>
+</html>

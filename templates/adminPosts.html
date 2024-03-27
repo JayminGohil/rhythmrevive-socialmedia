@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="icon" type="image/x-icon" href="../static/admin-favicon.ico" />
+
+    <link rel="stylesheet" href="../static/adminUsers.css">
+    <link rel="stylesheet" href="../static/adminPosts.css">
+    <link rel="stylesheet" href="../static/userSearch.css">
+    <link rel="stylesheet" href="../static/adminPosts2.css">
+
+    <script src="https://kit.fontawesome.com/cae20e7add.js" crossorigin="anonymous"></script>
+    <link rel='stylesheet'
+        href='https://cdn-uicons.flaticon.com/2.1.0/uicons-bold-straight/css/uicons-bold-straight.css'>
+    <link rel='stylesheet'
+        href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <link rel='stylesheet'
+        href='https://cdn-uicons.flaticon.com/2.1.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.1.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+    <link rel='stylesheet'
+        href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-straight/css/uicons-solid-straight.css'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="top">
+            <div class="logo">
+                <i class="fi fi-bs-admin-alt"></i>
+                <span>Admin Panel</span>
+            </div>
+            <i class="fi fi-bs-menu-burger" id="btn"></i>
+        </div>
+        <div class="user">
+            <img src="../static/assets/admin.png" alt="admin" class="user-img">
+            <div>
+                <p class="bold">{{adminName}}</p>
+                <p>Admin</p>
+            </div>
+        </div>
+
+        <ul>
+
+            <li>
+                <a href="/adminPanel">
+                    <i class="fi fi-sr-objects-column"></i>
+                    <span class="nav-item">Dashboard</span>
+                </a>
+                <span class="tooltip">Dashboard</span>
+            </li>
+            <li>
+                <a href="/adminPanel/analytics">
+                    <i class="fi fi-sr-chart-pie-alt"></i>
+                    <span class="nav-item">Analytics</span>
+                </a>
+                <span class="tooltip">Analytics</span>
+            </li>
+            <li>
+                <a href="/adminPanel/moderation">
+                    <i class="fi fi-sr-admin-alt"></i>
+                    <span class="nav-item">Moderation</span>
+                </a>
+                <span class="tooltip">Moderation</span>
+            </li>
+            <li>
+                <a href="/adminPanel/posts"  class="active">
+                    <i class="fi fi-sr-memo-circle-check"></i>
+                    <span class="nav-item">Posts</span>
+                </a>
+                <span class="tooltip">Posts</span>
+            </li>
+            <li>
+                <a href="/adminPanel/manageAdmin">
+                    <i class="fi fi-sr-user-add"></i>
+                    <span class="nav-item">Admins</span>
+                </a>
+                <span class="tooltip">Admins</span>
+            </li>
+            <li>
+                <a href="/adminPanel/badges">
+                    <i class="fi fi-ss-first-award"></i>
+                    <span class="nav-item">Badges</span>
+                </a>
+                <span class="tooltip">Badges</span>
+            </li>
+            <li>
+                <a href="/adminLogout">
+                    <i class="fi fi-bs-sign-out-alt"></i>
+                    <span class="nav-item">Logout</span>
+                </a>
+                <span class="tooltip">Logout</span>
+            </li>
+        </ul>
+
+    </div>
+    <div class="main-content">
+        {% if msg %}
+        <div class="msg-container">
+            <h3>{{msg}}</h3>
+        </div>
+        {% endif %}
+        <h3>All Pending Video Lessons</h3>
+        {% if posts %}
+        <div class="main-pending-posts">
+
+            {%for post in posts%}
+            <div class="posts-container2">
+                <div class="user-post">
+                    <div class="user-post-profile">
+                        <div class="user-profile-image">
+                            <img src="{{post[6]}}">
+                        </div>
+                        <a href="/userProfile/@{{post[5]}}">{{post[5]}}</a>
+                    </div>
+                    <div class="user-post-content">
+                        <div class="user-post-medias">
+                            <video class="user-post-media" controls>
+                                <source src="{{post[3]}}" type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
+                    <div class="user-post-caption">
+                        <p>{{post[2]}}</p>
+                    </div>
+                    <div class="user-post-timestamp">
+                        <p>{{post[4]}}</p>
+                    </div>
+                    <form class="post-action-container" method="post">
+                        <input type="hidden" name="hidden-id" value="{{post[0]}}">
+                        <input type="submit" id="green" name="approve-lesson" value="Approve"/>
+                        <input type="submit" id="red" name="reject-lesson" value="Reject"/>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+
+
+        </div>
+        {% else %}
+        <div class="msg-container">
+            <h3>No Lessons To Approve!</h3>
+        </div>
+        {% endif %}
+    </div>
+
+</body>
+<script src="../static/adminSidebar.js"></script>
+</html>

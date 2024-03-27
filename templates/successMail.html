@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registration Successful</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        background-color: #eee;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      h2 {
+        color: #333;
+      }
+
+      p {
+        margin-bottom: 20px;
+      }
+
+      span {
+        background-color: #f0f0f0;
+        padding: 2px 5px;
+      }
+
+      .header {
+        text-align: center;
+        margin: 20px 0;
+      }
+
+      .header img.logo {
+        max-width: 70px;
+        height: auto;
+        margin-right: 10px;
+      }
+
+      .header img.name-logo {
+        max-width: 180px;
+        height: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <img
+          class="name-logo"
+          src="https://cdn.discordapp.com/attachments/1144273100112932914/1193134759510016061/mailPNG.png?ex=65ab9c56&is=65992756&hm=acccd697bd26ffae524419a0904212fa1fed5ac8c9fbbe23f3a9eabf40b72060&"
+          alt="Company name logo"
+        />
+        <!-- <p></p> -->
+      </div>
+      <h2>Registration Successful</h2>
+      <p>Hi <b>{{ session['user_data']['name'] }}</b>,</p>
+
+      <p>
+        Thank you for registering with RhythmRevive. Your registration is
+        successful, and you are now part of the RhythmRevive community.
+      </p>
+
+      <p>
+        We are excited to have you on board. If you have any questions or need
+        assistance, feel free to reach out to our support team.
+      </p>
+
+      <p>
+        Best regards,<br />
+        RhythmRevive Team
+      </p>
+    </div>
+  </body>
+</html>
