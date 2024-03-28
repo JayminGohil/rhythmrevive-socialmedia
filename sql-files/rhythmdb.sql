@@ -25,6 +25,8 @@ SET time_zone = "+00:00";
 -- Create Database
 CREATE DATABASE IF NOT EXISTS rhythmdb;
 --
+
+USE rhythmdb;
 -- Table structure for table `admins`
 --
 
