@@ -23,25 +23,25 @@ For more detailed installation instructions, please refer to the [Installation G
 ![](https://media.discordapp.net/attachments/1144273100112932914/1222595738391810179/UserLogin.png?ex=662a9082&is=66293f02&hm=0b7fd12c7de5aea9a53b02f1ca82b9025c987cc13dfc7b46d31ff754ba1431a3&=&format=webp&quality=lossless&width=1177&height=662)
 
 - ### OTP Verification Mail
-![](https://cdn.discordapp.com/attachments/1144273100112932914/1222597368235687986/emailOTP.jpg?ex=6616cb87&is=66045687&hm=21257c63114456fd68ca1b069478a239326068110c0c3d9b3fa3e4909c808e64&)
+![](https://media.discordapp.net/attachments/1144273100112932914/1222597368235687986/emailOTP.jpg?ex=662a9207&is=66294087&hm=072733671d37876b1eed77193f4680661dfc87f671888a6403a9a6d20d6303c9&=&format=webp&width=202&height=437)
 
 - ### Home Feed (Desktop)
-![](https://media.discordapp.net/attachments/1144273100112932914/1222595589364121702/Homepage.png?ex=6616c9df&is=660454df&hm=a8197061d33a82d7fa9f84c8fbbeb583a3c9e54d2f3a9bb906311b13fdd95606&=&format=webp&quality=lossless&width=1177&height=662)
+![](https://media.discordapp.net/attachments/1144273100112932914/1222595589364121702/Homepage.png?ex=662a905f&is=66293edf&hm=e01ca14615b08ef0e11fc12aaa4788906df83dd32b93e716a3365d23cc8f8e61&=&format=webp&quality=lossless&width=1177&height=662)
 
 - ### Home Feed (Mobile)
-![](https://media.discordapp.net/attachments/1144273100112932914/1222595589854986260/mobilehomepage.png?ex=6616c9df&is=660454df&hm=d7fab1b910b100db1be3f6a17ce6e6f0c0d3709abebf8354a545388e341fadff&=&format=webp&quality=lossless&width=376&height=661)
+![](https://media.discordapp.net/attachments/1144273100112932914/1222595589854986260/mobilehomepage.png?ex=662a905f&is=66293edf&hm=ca812af8c987819733aca9c9d96da52e29f1e27317b12e0623f2c2bcf4f55dce&=&format=webp&quality=lossless&width=376&height=661)
 
 - ### Live User Search
-![](https://media.discordapp.net/attachments/1144273100112932914/1222595738807173332/userSearch.png?ex=6616ca02&is=66045502&hm=91e81e8be03007539c66015263d4c8d3cdbe1dff475a069a465f06d81b1033f8&=&format=webp&quality=lossless&width=1177&height=662)
+![](https://media.discordapp.net/attachments/1144273100112932914/1222595738807173332/userSearch.png?ex=662a9082&is=66293f02&hm=9b3d6bcccd1663a9d41c9a4733533d1bd5ab4d0acd84fb4aad5e2623b948623f&=&format=webp&quality=lossless&width=1177&height=662)
 
 - ### Live Messaging Via SocketIO
-![](https://media.discordapp.net/attachments/1144273100112932914/1222595653180456990/Messaging.png?ex=6616c9ee&is=660454ee&hm=ba4f74661aa2a8a982e9b290b17487e7e9dd9d3511a2d2a212584d9c69f45163&=&format=webp&quality=lossless&width=687&height=386)
+![](https://media.discordapp.net/attachments/1144273100112932914/1222595653180456990/Messaging.png?ex=662a906e&is=66293eee&hm=f557e66fae2faf625582e8746ace34a74ab315e94b339d415de962a2234b126a&=&format=webp&quality=lossless&width=687&height=386)
 
 - ### Admin Creation
-![](https://media.discordapp.net/attachments/1144273100112932914/1222595738005930124/adminCreate.png?ex=6616ca02&is=66045502&hm=ec607c41e9f406913d310a1f5b38e2a1d4e95f2570307cdc2d96615b903afd10&=&format=webp&quality=lossless&width=1177&height=662)
+![](https://media.discordapp.net/attachments/1144273100112932914/1222595738005930124/adminCreate.png?ex=662a9082&is=66293f02&hm=dc7608875b03598622279e390090344bafe2cec45a96e191b34dea4b491d17ef&=&format=webp&quality=lossless&width=1177&height=662)
 
 - ### Admin User Moderation (Ban & Unban)
-![](https://media.discordapp.net/attachments/1144273100112932914/1222595737569853481/adminBan.png?ex=6616ca02&is=66045502&hm=b0e8110cce138136e62eb6e0c98a6e3ebb54abcb44ded277ab4009e5facdf2e4&=&format=webp&quality=lossless&width=1181&height=662)
+![](https://media.discordapp.net/attachments/1144273100112932914/1222595737569853481/adminBan.png?ex=662a9082&is=66293f02&hm=2c86a10e768032cbfec07d38144564b7b63d78f9c39b073edbd8e6f722b4eddc&=&format=webp&quality=lossless&width=1181&height=662)
 
 ## Technologies Used
 
