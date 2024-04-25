@@ -20,7 +20,7 @@ For more detailed installation instructions, please refer to the [Installation G
 ## ScreenShots
 
 - ### Login Screen
-![](https://media.discordapp.net/attachments/1144273100112932914/1222595738391810179/UserLogin.png?ex=6616ca02&is=66045502&hm=424bdbdaada9742cffeb4f442311a824aaf6e87a8d2bc00e7b1efa0feabe10b8&=&format=webp&quality=lossless&width=1177&height=662)
+![](https://media.discordapp.net/attachments/1144273100112932914/1222595738391810179/UserLogin.png?ex=662a9082&is=66293f02&hm=0b7fd12c7de5aea9a53b02f1ca82b9025c987cc13dfc7b46d31ff754ba1431a3&=&format=webp&quality=lossless&width=1177&height=662)
 
 - ### OTP Verification Mail
 ![](https://cdn.discordapp.com/attachments/1144273100112932914/1222597368235687986/emailOTP.jpg?ex=6616cb87&is=66045687&hm=21257c63114456fd68ca1b069478a239326068110c0c3d9b3fa3e4909c808e64&)
