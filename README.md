@@ -65,7 +65,7 @@ For more detailed installation instructions, please refer to the [Installation G
 
 ## Communication
 
-If you need support for the DrivePulse Project &  want to chat with other devs join the [PAIN's HUB](https://discord.gg/painshub) Discord server or send me a friend request at `paiiinn` on discord
+If you need support for the Project &  want to chat with other devs join the [PAIN's HUB](https://discord.gg/painshub) Discord server or send me a friend request at `paiiinn` on discord
 
 [![](https://discord.com/api/guilds/519527459620651011/embed.png)](https://discord.gg/painshub)
 
