@@ -20,28 +20,28 @@ For more detailed installation instructions, please refer to the [Installation G
 ## ScreenShots
 
 - ### Login Screen
-![](https://media.discordapp.net/attachments/1144273100112932914/1222595738391810179/UserLogin.png?ex=662a9082&is=66293f02&hm=0b7fd12c7de5aea9a53b02f1ca82b9025c987cc13dfc7b46d31ff754ba1431a3&=&format=webp&quality=lossless&width=1177&height=662)
+![](screenshots/UserLogin.png)
 
 - ### OTP Verification Mail
-![](https://media.discordapp.net/attachments/1144273100112932914/1222597368235687986/emailOTP.jpg?ex=662a9207&is=66294087&hm=072733671d37876b1eed77193f4680661dfc87f671888a6403a9a6d20d6303c9&=&format=webp&width=202&height=437)
+![](screenshots/emailOTP.jpg)
 
 - ### Home Feed (Desktop)
-![](https://media.discordapp.net/attachments/1144273100112932914/1222595589364121702/Homepage.png?ex=662a905f&is=66293edf&hm=e01ca14615b08ef0e11fc12aaa4788906df83dd32b93e716a3365d23cc8f8e61&=&format=webp&quality=lossless&width=1177&height=662)
+![](screenshots/Homepage.png)
 
 - ### Home Feed (Mobile)
-![](https://media.discordapp.net/attachments/1144273100112932914/1222595589854986260/mobilehomepage.png?ex=662a905f&is=66293edf&hm=ca812af8c987819733aca9c9d96da52e29f1e27317b12e0623f2c2bcf4f55dce&=&format=webp&quality=lossless&width=376&height=661)
+![](screenshots/mobilehomepage.png)
 
 - ### Live User Search
-![](https://media.discordapp.net/attachments/1144273100112932914/1222595738807173332/userSearch.png?ex=662a9082&is=66293f02&hm=9b3d6bcccd1663a9d41c9a4733533d1bd5ab4d0acd84fb4aad5e2623b948623f&=&format=webp&quality=lossless&width=1177&height=662)
+![](screenshots/userSearch.png)
 
 - ### Live Messaging Via SocketIO
-![](https://media.discordapp.net/attachments/1144273100112932914/1222595653180456990/Messaging.png?ex=662a906e&is=66293eee&hm=f557e66fae2faf625582e8746ace34a74ab315e94b339d415de962a2234b126a&=&format=webp&quality=lossless&width=687&height=386)
+![](screenshots/Messaging.png)
 
 - ### Admin Creation
-![](https://media.discordapp.net/attachments/1144273100112932914/1222595738005930124/adminCreate.png?ex=662a9082&is=66293f02&hm=dc7608875b03598622279e390090344bafe2cec45a96e191b34dea4b491d17ef&=&format=webp&quality=lossless&width=1177&height=662)
+![](screenshots/adminCreate.png)
 
 - ### Admin User Moderation (Ban & Unban)
-![](https://media.discordapp.net/attachments/1144273100112932914/1222595737569853481/adminBan.png?ex=662a9082&is=66293f02&hm=2c86a10e768032cbfec07d38144564b7b63d78f9c39b073edbd8e6f722b4eddc&=&format=webp&quality=lossless&width=1181&height=662)
+![](screenshots/adminBan.png)
 
 ## Technologies Used
 
