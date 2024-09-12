@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-- Local web server environment (e.g., XAMPP, WAMP, MAMP) with PHP and MySQL support.
+- Local web server environment (e.g., XAMPP, WAMP, MAMP) with MySQL support.
 - Python installed on your system.
 
 ## Installation Steps
